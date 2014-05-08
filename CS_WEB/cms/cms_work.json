@@ -4,7 +4,7 @@
 	"columns": [
 		{
 			"name": "参与赛事",
-			"url": "cms/pending.html"
+			"url": "cms/work/event.html"
 		}
 	]
 }

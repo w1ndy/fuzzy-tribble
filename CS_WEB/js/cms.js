@@ -15,7 +15,7 @@ function renderList(tag, desc) {
 		var sp = getParameterByName('p');
 		var p = parseInt(sp, 10);
 		var art_count = data.articles.length;
-		var page_count = Math.floor(art_count / 15) + 1;
+		var page_count = Math.floor((art_count - 1) / 15) + 1;
 
 		if(sp == '' || p == 0 || p > page_count)
 			p = 1;

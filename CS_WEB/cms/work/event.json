@@ -1,0 +1,25 @@
+{
+	"base_url": "work.html?c=0&p=",
+	"articles": [
+		{
+			"url": 404,
+			"title": "ACM ICPC",
+			"date": ""
+		},
+		{
+			"url": 404,
+			"title": "学术论坛",
+			"date": ""
+		},
+		{
+			"url": 404,
+			"title": "辩论赛",
+			"date": ""
+		},
+		{
+			"url": 404,
+			"title": "演讲比赛",
+			"date": ""
+		}
+	]
+}

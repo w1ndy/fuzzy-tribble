@@ -228,9 +228,10 @@ body {
 	position: absolute;
 	top: 0px;
 	left: 180px;
-	width: 150px;
-	height:150px;
-	background: url(../images/tsxtlogo@2x.png) no-repeat;
+	width: 120px;
+	height: 120px;
+	background-size: cover;
+	background-image: url(../images/tsxtlogo@2x.png);
 	opacity: 0.2;
 	filter: alpha(opacity=20)
 }

@@ -1,22 +1,22 @@
 {
 	"slides": [
 		{
-			"url": "#",
-			"image": "docs/slide.jpeg",
-			"title": "Sample News #1",
-			"desc": "Sample description for News #1..."
+			"url": "intro.html?c=1&p=1&a=1028",
+			"image": "docs/20140401_1.jpg",
+			"title": "泰山学堂春季田径暨趣味运动会顺利举办",
+			"desc": "3月29日下午，2014年山东大学泰山学堂春季田径暨趣味运动会在中心校区体育场顺利举办。泰山学堂副院长吴臻教授，"
 		},
 		{
-			"url": "#",
-			"image": "docs/slide.jpeg",
-			"title": "Sample News #2",
-			"desc": "Sample description for News #2..."
+			"url": "intro.html?c=1&p=1&a=1025",
+			"image": "docs/20140401.jpg",
+			"title": "泰山学堂2013级学生赴黄河森林公园春游",
+			"desc": "3月22日，泰山学堂2013级学生赴黄河森林公园春游，本次活动由泰山学堂13级班委会组织，13级泰山学堂五个专业取向的学生共同参加了本次活动。"
 		},
 		{
-			"url": "#",
-			"image": "docs/slide.jpeg",
-			"title": "Sample News #3",
-			"desc": "Sample description for News #3..."
+			"url": "intro.html?c=1&p=1&a=1026",
+			"image": "docs/20140326.jpg",
+			"title": "泰山学堂2012级学子共赴水帘峡春游",
+			"desc": "明朗的三月，清风凉爽。3月22日，泰山学堂2012级的同学们在轻盈的初春来到南部山区的水帘峡景区踏青。"
 		}
 	]
 }

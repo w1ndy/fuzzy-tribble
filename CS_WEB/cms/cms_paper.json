@@ -3,8 +3,12 @@
 	"base_url": "paper.html",
 	"columns": [
 		{
-			"name": "文件与政策",
+			"name": "招生动态",
 			"url": "cms/paper/paper_list.html"
+		},
+		{
+			"name": "政策与文件",
+			"url": "cms/paper/policy.html"
 		},
 		{
 			"name": "文件下载",

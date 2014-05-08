@@ -63,5 +63,6 @@ function renderColumn(node, url) {
 $(document).ready(function() {
 	renderColumn($('#activity'), 'cms/intro/activity.json');
 	renderColumn($('#paperwork'), 'cms/paper/paper_list.json');
+	renderColumn($('#news'), 'cms/intro/news.json')
 	renderSlide('cms/index.json');
 });

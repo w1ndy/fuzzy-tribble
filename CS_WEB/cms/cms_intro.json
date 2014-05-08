@@ -4,11 +4,11 @@
 	"columns": [
 		{
 			"name": "取向简介",
-			"url": "cms/pending.html"
+			"url": "cms/intro/intro.html"
 		},
 		{
 			"name": "取向动态",
-			"url": "cms/pending.html"
+			"url": "cms/intro/news.html"
 		},
 		{
 			"name": "集体活动",
