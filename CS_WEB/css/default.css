@@ -149,7 +149,7 @@ body {
 
 #bottom {
 	position: relative;
-	padding-top: 80px;
+	padding-top: 55px;
 	margin-right: auto;
 	margin-left: auto;
 	width: 1000px;
@@ -171,7 +171,7 @@ body {
 #bottom-left {
 	text-align: right;
 	position: absolute;
-	top: 84px;
+	top: 55px;
 	left: 0;
 	width: 150px;
 	height: auto;
@@ -227,17 +227,19 @@ body {
 #bottom-logo {
 	position: absolute;
 	top: 0px;
-	left: 160px;
-	width: 75px;
-	height:75px;
-	background: url(../images/tsxtlogo.png) no-repeat;
+	left: 180px;
+	width: 150px;
+	height:150px;
+	background: url(../images/tsxtlogo@2x.png) no-repeat;
+	opacity: 0.2;
+	filter: alpha(opacity=20)
 }
 
 #bottom-flink {
 	position:absolute;
 	right:30px;
 	width:220px;
-	top:80px;
+	top:55px;
 	text-align:left;
 }
 
@@ -275,7 +277,7 @@ body {
 
 #bottom-contact {
 	padding-top: 20px;
-	padding-bottom:40px;
+	padding-bottom:60px;
 }
 
 #bottom-contact p {
@@ -285,7 +287,7 @@ body {
 #bottom-legal {
 	position: absolute;
 	right: 30px;
-	top:253px;
+	top:228px;
 	float: right;
 	width: 220px;
 }
