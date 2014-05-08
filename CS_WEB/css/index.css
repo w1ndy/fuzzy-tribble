@@ -61,7 +61,6 @@
 	left: 45px;
 	line-height: 30px;
 	text-shadow: 0 0 10px rgba(0, 0, 0, 1.0);
-	font-family: "Lucida Grenda", "Microsoft YaHei", sans-serif;
 	filter: glow(color=black,strength=1);
 	z-index: 1;
 }
@@ -192,7 +191,7 @@
 
 .item_dot {
 	width: 10px;
-	background: url(../images/dot.png) no-repeat;
+	background: url(../images/dot.bmp) no-repeat;
 	background-position: 50% 50%;
 }
 
