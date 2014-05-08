@@ -1,0 +1,22 @@
+.image_container:hover .image_popup {
+	bottom: 0px;
+	-webkit-transition: 0.3s ease;
+	transition: 0.3s ease;
+}
+
+.gallery_container:hover {
+	z-index: 2;
+  box-shadow: rgba(0, 0, 0, 0.498039) 0px 0px 20px;
+	left: -10px;
+	top: -10px;
+	width: 135px;
+	height: 130px;
+}
+
+.gallery_container:hover a {
+	display: inline;
+}
+
+.gallery_container:hover .gallery_image {
+	-webkit-filter: blur(1.960293685676943px);
+}

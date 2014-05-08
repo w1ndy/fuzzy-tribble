@@ -1,0 +1,22 @@
+{
+	"slides": [
+		{
+			"url": "#",
+			"image": "docs/slide.jpeg",
+			"title": "Sample News #1",
+			"desc": "Sample description for News #1..."
+		},
+		{
+			"url": "#",
+			"image": "docs/slide.jpeg",
+			"title": "Sample News #2",
+			"desc": "Sample description for News #2..."
+		},
+		{
+			"url": "#",
+			"image": "docs/slide.jpeg",
+			"title": "Sample News #3",
+			"desc": "Sample description for News #3..."
+		}
+	]
+}

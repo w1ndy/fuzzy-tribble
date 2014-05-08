@@ -1,0 +1,26 @@
+{
+	"page_name": "实用工具",
+	"base_url": "util.html",
+	"columns": [
+		{
+			"name": "常用软件",
+			"url": "cms/util/soft.html"
+		},
+		{
+			"name": "开发工具",
+			"url": "cms/util/devtools.html"
+		},
+		{
+			"name": "信息网站",
+			"url": "cms/pending.html"
+		},
+		{
+			"name": "自制游戏",
+			"url": "cms/pending.html"
+		},
+		{
+			"name": "学期项目",
+			"url": "cms/pending.html"
+		}
+	]
+}

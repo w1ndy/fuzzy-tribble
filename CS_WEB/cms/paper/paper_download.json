@@ -1,0 +1,20 @@
+{
+	"base_url": "paper.html?c=1&p=",
+	"articles": [
+		{
+			"url": "files/20120915.xls",
+			"title": "山东大学泰山学堂2012级新生选拔拟录取名单",
+			"date": "XLS"
+		},
+		{
+			"url": "files/20120901.doc",
+			"title": "山东大学泰山学堂2012级学生选拔工作通知",
+			"date": "DOC"
+		},
+		{
+			"url": "files/2010928101654782.doc",
+			"title": "泰山学堂2010级计算机取向预录取名单",
+			"date": "DOC"
+		}
+	]
+}

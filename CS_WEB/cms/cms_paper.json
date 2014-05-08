@@ -1,0 +1,14 @@
+{
+	"page_name": "招生文件",
+	"base_url": "paper.html",
+	"columns": [
+		{
+			"name": "文件与政策",
+			"url": "cms/paper/paper_list.html"
+		},
+		{
+			"name": "文件下载",
+			"url": "cms/paper/paper_download.html"
+		}
+	]
+}
