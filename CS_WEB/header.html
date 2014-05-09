@@ -17,32 +17,8 @@
 
 <div id="menubar">
 	<div id="menubar-content">
-		<div id="home" class="menubar-content-menu">
+		<div id="menu0" class="menubar-content-menu">
 			<a href="index.html">首页</a>
-		</div>
-		<div id="intro" class="menubar-content-menu">
-			<a href="intro.html">取向概况</a>
-		</div>
-		<div id="prof" class="menubar-content-menu">
-			<a href="prof.html">专家队伍</a>
-		</div>
-		<div id="teach" class="menubar-content-menu">
-			<a href="teach.html">人才培养</a>
-		</div>
-		<div id="learn" class="menubar-content-menu">
-			<a href="learn.html">学习资源</a>
-		</div>
-		<div id="work" class="menubar-content-menu">
-			<a href="work.html">学生成果</a>
-		</div>
-		<div id="paper" class="menubar-content-menu">
-			<a href="paper.html">招生文件</a>
-		</div>
-		<div id="util" class="menubar-content-menu">
-			<a href="util.html">实用工具</a>
-		</div>
-		<div id="english" class="menubar-content-helper">
-			<a href="#">English</a>
 		</div>
 	</div>
 </div>
@@ -59,24 +35,24 @@
 			}
 		}
 	});
-	$(document).ready(function() {
-		var loc_to_elem = {
-			"/index.html":	"#home",
-			"/":			"#home",
-			"/intro.html":	"#intro",
-			"/prof.html":	"#prof",
-			"/teach.html":	"#teach",
-			"/learn.html":	"#learn",
-			"/paper.html":	"#paper",
-			"/work.html":	"#work",
-			"/util.html":	"#util"};
-		var loc = $(location).attr('pathname');
-		if(loc_to_elem[loc.substring(loc.lastIndexOf('/'))]) {
-			$(loc_to_elem[$(location).attr('pathname')]).css({
+	function renderMenuWithHighlight(index) {
+		$.get('cms/cms.json', function(data) {
+			if(typeof data == 'string') data = eval('(' + data + ')');
+			for(var i = 0; i < data.length; i++) {
+				$("#menubar-content").append('<div id="menu' + (i + 1) +
+					'" class="menubar-content-menu"><a href="' +
+					data[i].base_url + '">' + data[i].page_name + '</a></div>');
+			}
+			$("#menubar-content").append('<div id="english" class="menubar-content-helper"><a href="#">English</a></div>');
+			$('#menu' + index).css({
 				//'background': '#671111'
 				'box-shadow': '2px 0 5px -2px #000 inset, -2px 0 5px -2px #000 inset'
 			});
-		}
+		}).fail(function(j, s, t) {
+			console.log(s);
+		});
+	}
+	$(document).ready(function() {
 		var D = new Date();
 		var yy = D.getFullYear();
 		var mm = D.getMonth()+1;
