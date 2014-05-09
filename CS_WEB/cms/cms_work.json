@@ -3,6 +3,10 @@
 	"base_url": "work.html",
 	"columns": [
 		{
+			"name": "英雄榜",
+			"url": "cms/work/people.html"
+		},
+		{
 			"name": "参与赛事",
 			"url": "cms/work/event.html"
 		}
