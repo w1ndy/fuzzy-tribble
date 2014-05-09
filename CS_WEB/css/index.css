@@ -324,4 +324,6 @@
 	filter: alpha(opacity=30);
 	background-color: #000;
 	z-index: 5;
+	-webkit-transition: 0.1s;
+	transition: 0.1s;
 }
