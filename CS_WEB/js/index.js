@@ -28,7 +28,6 @@ function insertSlide(data) {
 }
 
 function renderSlide(url) {
-	var rand = (new Date()).toString();
 	$.get(url, function(data) {
 		if(typeof data == 'string') data = eval('(' + data + ')');
 		for(var i = 0; i < data.slides.length; i++) {
@@ -47,7 +46,6 @@ function renderSlide(url) {
 }
 
 function renderColumn(node, url) {
-	var rand = (new Date()).toString();
 	$.get(url, function(data) {
 		if(typeof data == 'string') data = eval('(' + data + ')');
 		for(var i = 0; i < (data.articles.length > 5 ? 5 : data.articles.length); i++) {
@@ -61,6 +59,7 @@ function renderColumn(node, url) {
 $(document).ready(function() {
 	$.get("header.html", function(data) {
 		$("#header").html(data);
+		renderMenuWithHighlight(0);
 		renderColumn($('#activity'), 'cms/intro/activity.json');
 		renderColumn($('#paperwork'), 'cms/paper/paper_list.json');
 		renderColumn($('#news'), 'cms/intro/news.json')
@@ -77,4 +76,3 @@ $(document).ready(function() {
 		console.log(s);
 	});
 });
-
