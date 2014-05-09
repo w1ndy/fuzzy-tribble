@@ -96,7 +96,7 @@ body {
 	background: -ms-linear-gradient(top, #ca1111 0%,#941818 100%); /* IE10+ */
 	background: linear-gradient(to bottom, #ca1111 0%,#941818 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ca1111', endColorstr='#941818',GradientType=0 ); /* IE6-9 */
-	box-shadow: 0px 0 10px 0 rgba(0, 0, 0, .5);
+	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
 	z-index: 50;
 }
 
@@ -153,7 +153,7 @@ body {
 	margin-right: auto;
 	margin-left: auto;
 	width: 1000px;
-	text-color: #fff;
+	color: #fff;
 	text-shadow: 0 0 4px rgba(0, 0, 0, .5);
 	filter: glow(color=black,strength=1);
 	background-color: #89181b;
