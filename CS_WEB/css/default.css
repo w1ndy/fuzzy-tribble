@@ -310,6 +310,7 @@ body {
 	width: 180px;
 	height: 100%;
 	height: auto;
+	z-index: -1;
 }
 
 #content_container {
