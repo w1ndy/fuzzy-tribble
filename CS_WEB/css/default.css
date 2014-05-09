@@ -452,7 +452,7 @@ body {
 .newsdot {
 	width: 20px;
 	height: 23px;
-	background: url(../images/dot.bmp) no-repeat;
+	background: url(../images/dot.gif) no-repeat;
 	background-position: 50% 50%;
 }
 
