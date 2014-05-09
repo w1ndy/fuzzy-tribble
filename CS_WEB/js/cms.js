@@ -149,17 +149,19 @@ function renderContent(page) {
 
 function loadContent() {
 	$(document).ready(function() {
-		$("#header").load("header.html");
-		$("#content").load("cms/cms_template.html", function() {
-			var loc = $(location).attr('pathname');
-			var start = loc.lastIndexOf('/'), end = loc.lastIndexOf('.');
-			if(start == -1 || end == -1) {
-				$("#content").load("cms/pending.html");
-			} else {
-				renderContent(loc.substring(start + 1, end));
-			}
+		$("#header").load("header.html", function() {
+			$("#content").load("cms/cms_template.html", function() {
+				var loc = $(location).attr('pathname');
+				var start = loc.lastIndexOf('/'), end = loc.lastIndexOf('.');
+				if(start == -1 || end == -1) {
+					$("#content").load("cms/pending.html");
+				} else {
+					renderContent(loc.substring(start + 1, end));
+				}
+				$("#content").show();
+				$("#footer").load("footer.html");
+			});
 		});
-		$("#footer").load("footer.html");
 	});
 }
 

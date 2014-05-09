@@ -1,7 +1,3 @@
-$(function() {
-	$("#header").load("header.html");
-	$("#footer").load("footer.html");
-});
 Modernizr.load({
 	test: Modernizr.csstransitions,
 	yep : 'css/transition.css',
@@ -63,8 +59,13 @@ function renderColumn(node, url) {
 }
 
 $(document).ready(function() {
-	renderColumn($('#activity'), 'cms/intro/activity.json');
-	renderColumn($('#paperwork'), 'cms/paper/paper_list.json');
-	renderColumn($('#news'), 'cms/intro/news.json')
-	renderSlide('cms/index.json');
+	$("#header").load("header.html", function() {
+		renderColumn($('#activity'), 'cms/intro/activity.json');
+		renderColumn($('#paperwork'), 'cms/paper/paper_list.json');
+		renderColumn($('#news'), 'cms/intro/news.json')
+		renderSlide('cms/index.json');
+		$('#content').show();
+		$("#footer").load("footer.html");
+	});
 });
+
