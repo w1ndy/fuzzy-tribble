@@ -159,8 +159,14 @@ function loadContent() {
 					renderContent(loc.substring(start + 1, end));
 				}
 				$("#content").show();
-				$("#footer").load("footer.html");
+				$("#footer").load("footer.html").fail(function(j, s, t) {
+					$('#footer').html('<p>Failed to load footer.</p>');
+					console.log(s);
+				});
 			});
+		}).fail(function(j, s, t) {
+			$('#header').html('<p>Failed to load header.</p>');
+			console.log(s);
 		});
 	});
 }
