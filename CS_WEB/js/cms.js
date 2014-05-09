@@ -58,7 +58,7 @@ function renderList(tag, desc) {
 		}
 		b = Math.round((760 - (b * 35)) / 2);
 		$('.pager').css('margin-left', b.toString() + 'px');
-	}).fail(function(j, s, t) {console.log(s); });
+	}).error(function(j, s, t) {console.log(s); });
 }
 
 function renderContent(page) {
@@ -92,7 +92,7 @@ function renderContent(page) {
 
 			$.get(data.columns[c].url + '?_=' + rand, function(data) {
 				$('.placeholder').html(data);
-			}).fail(function(j, s, t) {
+			}).error(function(j, s, t) {
 				console.log(s);
 				$('#loc_entry_2').html('<p>404</p>');
 				$.get('cms/pending.html', function(data) {
@@ -126,7 +126,7 @@ function renderContent(page) {
 						title = "文章";
 					}
 					$('#loc_entry_3').html('<p>' + title + '</p>');
-				}).fail(function(j, s, t) {
+				}).error(function(j, s, t) {
 					console.log(s);
 					$('#loc_entry_3').html('<p>404</p>');
 					$.get('cms/pending.html', function(data) {
@@ -136,7 +136,7 @@ function renderContent(page) {
 			}
 		}
 		$('.placeholder').show();
-	}).fail(function(j, s, t) {
+	}).error(function(j, s, t) {
 		console.log(s);
 		$('#loc_entry_1').html('<p>404</p>');
 		$.get('cms/pending.html', function(data) {
@@ -149,8 +149,10 @@ function renderContent(page) {
 
 function loadContent() {
 	$(document).ready(function() {
-		$("#header").load("header.html", function() {
-			$("#content").load("cms/cms_template.html", function() {
+		$.get("header.html", function(data) {
+			$("#header").html(data);
+			$.get("cms/cms_template.html", function(data) {
+				$("#content").html(data);
 				var loc = $(location).attr('pathname');
 				var start = loc.lastIndexOf('/'), end = loc.lastIndexOf('.');
 				if(start == -1 || end == -1) {
@@ -159,12 +161,18 @@ function loadContent() {
 					renderContent(loc.substring(start + 1, end));
 				}
 				$("#content").show();
-				$("#footer").load("footer.html").fail(function(j, s, t) {
+
+				$.get("footer.html", function(data) {
+					$("#footer").html(data);
+				}).error(function(j, s, t) {
 					$('#footer').html('<p>Failed to load footer.</p>');
 					console.log(s);
 				});
+			}).error(function(j, s, t) {
+				$('#content').html('<p>Failed to load cms template.</p>');
+				console.log(s);
 			});
-		}).fail(function(j, s, t) {
+		}).error(function(j, s, t) {
 			$('#header').html('<p>Failed to load header.</p>');
 			console.log(s);
 		});

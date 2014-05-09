@@ -41,7 +41,7 @@ function renderSlide(url) {
 			dots: true,
 			fluid: false
 		});
-	}).fail(function(j, s, t) {
+	}).error(function(j, s, t) {
 		console.log(s);
 	});
 }
@@ -53,23 +53,26 @@ function renderColumn(node, url) {
 		for(var i = 0; i < (data.articles.length > 5 ? 5 : data.articles.length); i++) {
 			insertItem(node, data.articles[i], data.base_url);
 		}
-	}).fail(function(j, s, t) {
+	}).error(function(j, s, t) {
 		console.log(s);
 	});
 }
 
 $(document).ready(function() {
-	$("#header").load("header.html", function() {
+	$.get("header.html", function(data) {
+		$("#header").html(data);
 		renderColumn($('#activity'), 'cms/intro/activity.json');
 		renderColumn($('#paperwork'), 'cms/paper/paper_list.json');
 		renderColumn($('#news'), 'cms/intro/news.json')
 		renderSlide('cms/index.json');
 		$('#content').show();
-		$("#footer").load("footer.html").fail(function(j, s, t) {
+		$.get("footer.html", function(data) {
+			$("#footer").html(data);
+		}).error(function(j, s, t) {
 			$('#footer').html('<p>Failed to load footer.</p>');
 			console.log(s);
 		});
-	}).fail(function(j, s, t) {
+	}).error(function(j, s, t) {
 		$('#header').html('<p>Failed to load header.</p>');
 		console.log(s);
 	});
