@@ -9,6 +9,7 @@ function renderList(tag, desc) {
 	var rand = (new Date()).toString();
 	console.log(rand.toString());
 	$.get(desc + "?_=" + rand).success(function (data) {
+		if(typeof data == 'string') data = eval('(' + data + ')');
 		//console.log('json fetched');
 		console.log(data);
 		//var data = $.parseJSON(json_raw);
@@ -64,6 +65,7 @@ function renderContent(page) {
 	console.log('rendering content for ' + page);
 	var rand = new Date().toString();
 	$.get('cms/cms_' + page + '.json?_=' + rand, function(data) {
+		if(typeof data == 'string') data = eval('(' + data + ')');
 		$('.sidebar_header').html('<p>' + data.page_name + '</p>');
 		$('#loc_entry_1').html('<p>' + data.page_name + '</p>');
 		var sidebar_navi = $('.sidebar_navi ul');

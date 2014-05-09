@@ -34,6 +34,7 @@ function insertSlide(data) {
 function renderSlide(url) {
 	var rand = (new Date()).toString();
 	$.get(url + '?_=' + rand, function(data) {
+		if(typeof data == 'string') data = eval('(' + data + ')');
 		for(var i = 0; i < data.slides.length; i++) {
 			insertSlide(data.slides[i]);
 		}
@@ -52,6 +53,7 @@ function renderSlide(url) {
 function renderColumn(node, url) {
 	var rand = (new Date()).toString();
 	$.get(url + '?_=' + rand, function(data) {
+		if(typeof data == 'string') data = eval('(' + data + ')');
 		for(var i = 0; i < (data.articles.length > 5 ? 5 : data.articles.length); i++) {
 			insertItem(node, data.articles[i], data.base_url);
 		}
