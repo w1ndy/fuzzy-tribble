@@ -1,8 +1,95 @@
+String.prototype.format = String.prototype.f = function() {
+    var s = this,
+        i = arguments.length;
+
+    while (i--) {
+        s = s.replace(new RegExp('\\{' + i + '\\}', 'gm'), arguments[i]);
+    }
+    return s;
+};
+
 function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
         results = regex.exec(location.search);
     return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+function renderPageButton(current_page, page_count, base_url) {
+	var b = 0;
+	if(current_page != 1) {
+		$('.pager').append('<div class="pagebutton"><a href="' +
+			base_url + (current_page - 1) + '">&lt;</a></div>');
+		b++;
+	}
+	for(var i = 1; i <= page_count; i++) {
+		if(i == current_page) {
+			$('.pager').append('<div class="pagebutton nowpage"><a href="#">' + i + '</a></div>');
+		} else {
+			$('.pager').append('<div class="pagebutton"><a href="' + base_url + i + '">' +
+				i + '</a></div>');
+		}
+		b++;
+	}
+	if(current_page != page_count) {
+		$('.pager').append('<div class="pagebutton"><a href="' +
+			base_url + (current_page + 1) + '">&gt;</a></div>');
+		b++;
+	}
+	b = Math.round((760 - (b * 35)) / 2);
+	$('.pager').css('margin-left', b.toString() + 'px');
+}
+
+function countPage(array, num_per_page) {
+	return Math.floor((array.length - 1) / num_per_page) + 1;
+}
+
+function renderGrid(tag, desc) {
+	var rand = (new Date()).toString();
+	console.log(rand.toString());
+	$.get(desc).success(function (data) {
+		if(typeof data == 'string')
+			data = eval('(' + data + ')');
+
+		var sp = getParameterByName('p');
+		var p = parseInt(sp, 10);
+		var page_count = countPage(data.grids, 3 * 4);
+
+		if(sp == '' || p == 0 || p > page_count)
+			p = 1;
+		$(tag).html(
+			'<div class="gridcont"></div>' +
+			'<div class="pager"></div>');
+
+		var start = (p - 1) * 12, end = p * 12;
+		end = (end > data.grids.length) ? data.grids.length : end;
+
+		var grid = [
+			'<div class="grid">',
+				'<div class="grid-image">',
+					'<img src="{0}">',
+				'</div>',
+				'<div class="grid-link">',
+					'<a href="{1}">{2}</a>',
+				'</div>',
+			'</div>'
+		].join('\n');
+
+		for(var i = start; i < end; i++) {
+			if(typeof data.grids[i].url == 'string') {
+				$('.gridcont').append(grid.f(
+					data.grids[i].image,
+					data.grids[i].url,
+					data.title));
+			} else {
+				$('.gridcont').append(grid.f(
+					data.grids[i].image,
+					data.base_url + p + '&a=' + data.grids[i].url, 
+					data.grids[i].title));
+			}
+		}
+		renderPageButton(p, page_count, data.base_url);
+	}).error(function(j, s, t) {console.log(s); });
 }
 
 function renderList(tag, desc) {
@@ -36,28 +123,7 @@ function renderList(tag, desc) {
 					data.articles[i].date + '</td></tr>');
 			}
 		}
-		var b = 0;
-		if(p != 1) {
-			$('.pager').append('<div class="pagebutton"><a href="' +
-				data.base_url + (p - 1) + '">&lt;</a></div>');
-			b++;
-		}
-		for(var i = 1; i <= page_count; i++) {
-			if(i == p) {
-				$('.pager').append('<div class="pagebutton nowpage"><a href="#">' + i + '</a></div>');
-			} else {
-				$('.pager').append('<div class="pagebutton"><a href="' + data.base_url + i + '">' +
-					i + '</a></div>');
-			}
-			b++;
-		}
-		if(p != page_count) {
-			$('.pager').append('<div class="pagebutton"><a href="' +
-				data.base_url + (p + 1) + '">&gt;</a></div>');
-			b++;
-		}
-		b = Math.round((760 - (b * 35)) / 2);
-		$('.pager').css('margin-left', b.toString() + 'px');
+		renderPageButton(p, page_count, data.base_url);
 	}).error(function(j, s, t) {console.log(s); });
 }
 
