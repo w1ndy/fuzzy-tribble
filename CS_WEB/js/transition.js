@@ -4,17 +4,17 @@ $(document).ready(function() {
 	}, function() {
 		$('.image_popup', this).animate({'bottom':'-45px'}, 100);
 	});
-        $('.gallery_container').hover(function() {
+	$('.gallery_container').hover(function() {
 		$(this).css({
 			'z-index': 2,
-			'box-shadow':'0 0 20px rgba(0, 0, 0, .5)'
+			'box-shadow':'0px 0px 15px -5px rgba(0, 0, 0, .5)'
 		});
 		$(this).animate({
 			'left': '-10px',
 			'top':'-10px',
 			'width':'135px',
 			'height':'130px'
-		},100); 
+		},100);
 		$('.gallery_image .gallery_padding', this).animate({
 			'opacity': 0
 		}, 100);
@@ -30,11 +30,11 @@ $(document).ready(function() {
 			}
 		});
 		$('a', this).fadeIn(100);
-	}, function() { 
+	}, function() {
 		$(this).css({
 			'z-index':1,
 			'box-shadow':'none'
-		}); 
+		});
 		$(this).animate({
 			'left': '0px',
 			'top':'0px',
@@ -43,7 +43,7 @@ $(document).ready(function() {
 		},100,'swing',function(){
 			$(this).css({
 				'z-index':0});
-		}); 
+		});
 		$('.gallery_image .gallery_padding', this).animate({
 			'opacity': 0.3
 		}, 100);

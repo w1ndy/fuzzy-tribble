@@ -3,6 +3,7 @@
 <div id="banner">
 	<div id="banner-content">
 		<div id="banner-content-logo"></div>
+		<div id="banner-content-title"></div>
 		<div id="banner-content-right">
 			<div id="banner-content-right-logo"></div>
 			<div id="banner-content-right-navi">
@@ -83,11 +84,10 @@
 		if( yy < 100 ) yy = '19' + yy;
 		$('#banner-content-right-navi').append('<p>今天是'+yy+'年'+mm+'月'+dd+'日 农历'+GetLunarDay(yy,mm,dd)+'</p>');
 
-		$.getJSON("http://api.openweathermap.org/data/2.5/weather?q=Jinan,CN&units=metric&lang=zh_CN&callback=?", 
+		$.getJSON("http://api.openweathermap.org/data/2.5/weather?q=Jinan,CN&units=metric&lang=zh_CN&callback=?",
 			function(obj) {
-				$('#banner-content-right-navi').append('<p>济南 ' + obj.weather[0].description + ' ' + 
+				$('#banner-content-right-navi').append('<p>济南 ' + obj.weather[0].description + ' ' +
 				Math.round(obj.main.temp) + '°C by OpenWeatherMap</p>');
 			});
 	});
 </script>
-
