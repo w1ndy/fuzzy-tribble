@@ -26,7 +26,7 @@
 	background-size: cover;
 	background-position: 50% 50%;
 	display: block;
-	-ms-behavior: url(/backgroundsize.min.htc);
+	-ms-behavior: url(../backgroundsize.min.htc);
 	position: relative;
 }
 #slide .dots {
@@ -232,7 +232,7 @@
 	background-size: cover !important;
 	position: relative;
 	border-radius:10px;
-	-ms-behavior: url(/backgroundsize.min.htc);
+	-ms-behavior: url(../backgroundsize.min.htc);
 }
 
 .image_popup {
@@ -311,7 +311,7 @@
 	height: 100%;
 	background-position: 50% 50% !important;
 	background-size: cover !important;
-	-ms-behavior: url(/backgroundsize.min.htc);
+	-ms-behavior: url(../backgroundsize.min.htc);
 	-webkit-transition: 0.1s;
 	transition: 0.1s;
 }
@@ -324,4 +324,6 @@
 	filter: alpha(opacity=30);
 	background-color: #000;
 	z-index: 5;
+	-webkit-transition: 0.1s;
+	transition: 0.1s;
 }

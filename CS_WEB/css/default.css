@@ -39,7 +39,6 @@ body {
 }
 
 #banner-content {
-	padding-left: 20px;
 	width: 980px;
 	height: 100%;
 	margin: 0 auto;
@@ -47,11 +46,19 @@ body {
 }
 
 #banner-content-logo {
-	width: 580px;
+	width: 75px;
 	height: 100%;
 	float: left;
 	background: url(../images/logo.png) no-repeat;
 	background-position: 0% 50%;
+}
+
+#banner-content-title {
+	width: 480px;
+	height: 100%;
+	float: left;
+	background: url(../images/title.png) no-repeat;
+	background-position: 50% 50%;
 }
 
 #banner-content-right {
@@ -557,16 +564,24 @@ only screen and (min--moz-device-pixel-ratio: 1.3),
 only screen and (-o-min-device-pixel-ratio: 13/10),
 only screen and (min-device-pixel-ratio: 1.3),
 only screen and (min-resolution: 120dpi) {
+	#banner-content-logo {
+		background-image: url(../images/logo@2x.png);
+		background-size: 75px 75px;
+	}
+	#banner-content-title {
+		background-image: url(../images/title@2x.png);
+		background-size: 461px 57px;
+	}
 	#banner-content-right-logo {
-		background-image:url(../images/tsxtlogo@2x.png);
+		background-image: url(../images/tsxtlogo@2x.png);
 		background-size: 75px 75px;
 	}
 	#bottom-logo {
-		background-image:url(../images/tsxtlogoalpha@2x.png);
+		background-image: url(../images/tsxtlogoalpha@2x.png);
 		background-size: 120px 120px
 	}
 	#bottom-left-search label {
-		background-image:url(../images/sbutton@2x.png);
+		background-image: url(../images/sbutton@2x.png);
 		background-size: 20px 20px;
 	}
 	#slide .dots li {
