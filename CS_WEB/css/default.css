@@ -10,6 +10,7 @@ body {
 
 #header {
 	width: 100%;
+	min-width: 1000px;
 	height: 155px;
 }
 
@@ -28,6 +29,7 @@ body {
 	padding: 24px 0 0 0;
 	height: auto;
 	width: 100%;
+	min-width: 1000px;
 	background-color: #89181b;
 	box-shadow: inset rgba(0, 0, 0, 0.35) 0 5px 25px;
 }
@@ -39,36 +41,35 @@ body {
 }
 
 #banner-content {
-	width: 980px;
+	width: 1000px;
 	height: 100%;
 	margin: 0 auto;
-	background: #89181b;
 }
 
 #banner-content-logo {
 	width: 75px;
-	height: 100%;
+	height: 75px;
 	float: left;
+	margin: 20px 10px;
 	background: url(../images/logo.png) no-repeat;
-	background-position: 0% 50%;
 }
 
 #banner-content-title {
-	width: 480px;
-	height: 100%;
+	width: 461px;
+	height: 57px;
 	float: left;
+	margin: 29px 12px;
 	background: url(../images/title.png) no-repeat;
-	background-position: 50% 50%;
 }
 
 #banner-content-right {
-	width: 400px;
+	width: 420px;
 	height: 100%;
 	float: right;
 }
 
 #banner-content-right-navi {
-	width: 320px;
+	width: 325px;
 	height: 40px;
 	float: left;
 	margin-top: 30px;
@@ -80,15 +81,15 @@ body {
 	color: #ffffff;
 	font-size: 10px;
 	line-height: 14px;
-	margin-right: 10px;
 	text-shadow: 0 0 4px rgba(0, 0, 0, .5);
 	filter: glow(color=black,strength=1);
 }
 
 #banner-content-right-logo {
 	width: 75px;
-	height: 100%;
+	height: 75px;
 	float: right;
+	margin: 20px 10px;
 	background: url(../images/tsxtlogo.png) no-repeat;
 	background-position: 100% 50%;
 }
@@ -112,14 +113,6 @@ body {
 	width: 1000px;
 	height: 100%;
 	margin: 0 auto;
-	background: #ca1111; /* Old browsers */
-	background: -moz-linear-gradient(top, #ca1111 0%, #941818 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ca1111), color-stop(100%,#941818)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #ca1111 0%,#941818 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, #ca1111 0%,#941818 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, #ca1111 0%,#941818 100%); /* IE10+ */
-	background: linear-gradient(to bottom, #ca1111 0%,#941818 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ca1111', endColorstr='#941818',GradientType=0 ); /* IE6-9 */
 }
 
 .menubar-content-menu {
@@ -164,7 +157,6 @@ body {
 	color: #fff;
 	text-shadow: 0 0 4px rgba(0, 0, 0, .5);
 	filter: glow(color=black,strength=1);
-	background-color: #89181b;
 	line-height: 22px;
 }
 
