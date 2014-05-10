@@ -32,6 +32,7 @@ body {
 	min-width: 1000px;
 	background-color: #89181b;
 	box-shadow: inset rgba(0, 0, 0, 0.35) 0 5px 25px;
+	z-index: 1;
 }
 
 #banner {
@@ -302,7 +303,6 @@ body {
 	width: 180px;
 	height: 100%;
 	height: auto;
-	z-index: -1;
 }
 
 #content_container {
