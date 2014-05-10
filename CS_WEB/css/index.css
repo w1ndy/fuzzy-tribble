@@ -288,7 +288,7 @@
 	transition: 0.1s;
 }
 
-.gallery_container a {
+.gallery_container span {
 	position:absolute;
 	left:0;
 	top:0;
@@ -309,15 +309,19 @@
 	display: block;
 	width: 100%;
 	height: 100%;
-	background-position: 50% 50% !important;
-	background-size: cover !important;
-	-ms-behavior: url(../backgroundsize.min.htc);
 	-webkit-transition: 0.1s;
 	transition: 0.1s;
 }
 
+.gallery_image img {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+}
+
 .gallery_padding {
 	display: block;
+	position: absolute;
 	width: 100%;
 	height: 100%;
 	opacity: 0.3;
