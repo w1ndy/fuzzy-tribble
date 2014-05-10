@@ -17,7 +17,8 @@ function insertSlide(data) {
 	target = $('#slide ul');
 	if(target.length) {
 		target.append(
-			'<li style="background-image: url(' + data.image +');">' +
+			'<li>' +
+				'<img src="' + data.image + '">' +
 				'<div class="mask"></div>' +
 						'<div class="description">' +
 							'<a href="' + data.url + '">' + data.title + '</a>' +

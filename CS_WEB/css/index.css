@@ -20,14 +20,16 @@
 	list-style: none;
 }
 #slide ul li {
+	height: 350px;
 	float: left;
-	min-height: 350px;
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center;
 	display: block;
-	-ms-behavior: url(../backgroundsize.min.htc);
+	overflow: hidden;
 	position: relative;
+}
+#slide img {
+	width: 1000px;
+	position: relative;
+	top: -50%;
 }
 #slide .dots {
 	position: absolute;
