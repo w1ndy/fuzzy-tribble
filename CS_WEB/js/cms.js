@@ -256,11 +256,11 @@ $(window).scroll(function(e) {
 	$elem = $(".sidebar");
 	if($(window).scrollTop() > 115) {
 		if($elem.css("position") != "fixed") {
-			$elem.css({'position': 'fixed', 'top': '50px', 'right':''+($(window).width() - 1000)/2+'px'});
+			$elem.addClass('sidebar_float');
 		}
 	} else {
 		if($elem.css("position") == "fixed") {
-			$elem.css({'position': '','top':'', 'right':''});
+			$elem.removeClass('sidebar_float');
 		}
 	}
 });

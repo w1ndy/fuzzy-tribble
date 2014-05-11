@@ -27,11 +27,11 @@
 		$elem = $("#menubar");
 		if($(window).scrollTop() > 115) {
 			if($elem.css("position") != "fixed") {
-				$elem.css({'position': 'fixed', 'top': '0px'});
+				$elem.addClass("menubar-float");
 			}
 		} else {
 			if($elem.css("position") == "fixed") {
-				$elem.css({'position': '','top':''});
+				$elem.removeClass("menubar-float");
 			}
 		}
 	});

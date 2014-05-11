@@ -110,6 +110,11 @@ body {
 	z-index: 50;
 }
 
+.menubar-float {
+	position: fixed;
+	top: 0px;
+}
+
 #menubar-content {
 	width: 1000px;
 	height: 100%;
@@ -310,11 +315,17 @@ body {
 	filter: glow(color=black,strength=1);
 }
 
-.sidebar {
+.sidebar_container {
 	float: right;
+}
+
+.sidebar {
 	width: 180px;
-	height: 100%;
-	height: auto;
+}
+
+.sidebar_float {
+	position: fixed;
+	top: 50px;
 }
 
 #content_container {
