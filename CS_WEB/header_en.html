@@ -44,10 +44,7 @@
 					'px"><a href="' + data[i].base_url + '">' + data[i].page_name + '</a></div>');
 			}
 			$("#menubar-content").append('<div id="chinese" class="menubar-content-helper"><a href="#">中文</a></div>');
-			$('#menu' + index).css({
-				//'background': '#671111'
-				'box-shadow': '2px 0 5px -2px #000 inset, -2px 0 5px -2px #000 inset'
-			});
+			$('#menu' + index).addClass('menubar-content-highlight');
 			$('#chinese').click(function() {
 				var path = $(location).attr('pathname');
 				var loc = path.lastIndexOf('/') + 1;

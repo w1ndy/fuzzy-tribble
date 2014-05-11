@@ -149,6 +149,18 @@ body {
 	color: #fff;
 }
 
+.menubar-content-highlight {
+	background: #941818; /* Old browsers */
+	background: -moz-linear-gradient(top, #941818 0%, #ca1111 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#941818), color-stop(100%,#ca1111)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #941818 0%,#ca1111 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #941818 0%,#ca1111 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #941818 0%,#ca1111 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #941818 0%,#ca1111 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#941818', endColorstr='#ca1111',GradientType=0 ); /* IE6-9 */
+	box-shadow: 2px 0 5px -2px #000 inset, -2px 0 5px -2px #000 inset;
+}
+
 #bottom {
 	position: relative;
 	padding-top: 55px;
