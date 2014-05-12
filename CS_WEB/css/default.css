@@ -317,6 +317,7 @@ body {
 
 .sidebar_container {
 	float: right;
+	width: 180px;
 }
 
 .sidebar {
