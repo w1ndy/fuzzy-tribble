@@ -8,7 +8,7 @@
 			<div id="banner-content-right-logo"></div>
 			<div id="banner-content-right-navi">
 			<!--[if lte IE 8]>
-				<p style="color:orange;font-size:12px;margin-bottom:2px;">您的浏览器不支持CSS3，某些功能可能会受到影响<br>请升级至最新版本的<a href="http://windows.microsoft.com/zh-CN/internet-explorer/download-ie" style="color: orange;">Internet Explorer</a></p>
+				<p style="color:orange;font-size:12px;margin-bottom:2px;">Your browser doesn't support CSS3, so some functions may break.<br>Please upgrade to the latest <a href="http://windows.microsoft.com/en-US/internet-explorer/download-ie" style="color: orange;">Internet Explorer</a></p>
 			<![endif]-->
 			</div>
 		</div>
@@ -17,8 +17,8 @@
 
 <div id="menubar">
 	<div id="menubar-content">
-		<div id="menu0" class="menubar-content-menu">
-			<a href=".">首页</a>
+		<div id="menu0" class="menubar-content-menu" style="width:80px">
+			<a href="index_en.html">Home</a>
 		</div>
 	</div>
 </div>
@@ -36,25 +36,21 @@
 		}
 	});
 	function renderMenuWithHighlight(index) {
-		$.get('cms/cms.json', function(data) {
+		$.get('cms/cms_en.json', function(data) {
 			if(typeof data == 'string') data = eval('(' + data + ')');
 			for(var i = 0; i < data.length; i++) {
 				$("#menubar-content").append('<div id="menu' + (i + 1) +
-					'" class="menubar-content-menu"><a href="' +
-					data[i].base_url + '">' + data[i].page_name + '</a></div>');
+					'" class="menubar-content-menu" style="width:' + data[i].width +
+					'px"><a href="' + data[i].base_url + '">' + data[i].page_name + '</a></div>');
 			}
-			$("#menubar-content").append('<div id="english" class="menubar-content-helper"><a href="#">English</a></div>');
+			$("#menubar-content").append('<div id="chinese" class="menubar-content-helper"><a href="#">中文</a></div>');
 			$('#menu' + index).addClass('menubar-content-highlight');
-			$('#english').click(function() {
+			$('#chinese').click(function() {
 				var path = $(location).attr('pathname');
 				var loc = path.lastIndexOf('/') + 1;
-				if (loc == path.length) {
-					var page = 'index';
-				} else {
-					var page = path.substring(loc, path.length - 5);
-					path = path.substring(0, loc);
-				}
-				$(location).attr('pathname', path + page + '_en.html');
+				var page = path.substring(loc, path.length - 8);
+				path = path.substring(0, loc);
+				$(location).attr('pathname', path + page + '.html');
 			});
 		}).fail(function(j, s, t) {
 			console.log(s);
@@ -66,12 +62,12 @@
 		var mm = D.getMonth()+1;
 		var dd = D.getDate();
 		if( yy < 100 ) yy = '19' + yy;
-		$('#banner-content-right-navi').append('<p>今天是'+yy+'年'+mm+'月'+dd+'日 农历'+GetLunarDay(yy,mm,dd)+'</p>');
+		$('#banner-content-right-navi').append('<p>'+yy+'/'+mm+'/'+dd+'</p>');
 
-		$.getJSON("http://api.openweathermap.org/data/2.5/weather?q=Jinan,CN&units=metric&lang=zh_CN&callback=?",
+		$.getJSON("http://api.openweathermap.org/data/2.5/weather?q=Jinan,CN&units=metric&lang=en_US&callback=?",
 			function(obj) {
-				$('#banner-content-right-navi').append('<p>济南 ' + obj.weather[0].description + ' ' +
-				Math.round(obj.main.temp) + '℃ by OpenWeatherMap</p>');
+				$('#banner-content-right-navi').append('<p>Jinan ' + obj.weather[0].main + ' ' +
+				Math.round(obj.main.temp) + '℃</p>');
 			});
 	});
 </script>

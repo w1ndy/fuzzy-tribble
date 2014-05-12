@@ -13,7 +13,7 @@
 	height: 130px;
 }
 
-.gallery_container:hover a {
+.gallery_container:hover span {
 	display: inline;
 }
 
@@ -24,4 +24,5 @@
 
 .gallery_container:hover .gallery_padding {
 	opacity: 0;
+	filter: alpha(opacity=0);
 }

@@ -17,7 +17,8 @@ function insertSlide(data) {
 	target = $('#slide ul');
 	if(target.length) {
 		target.append(
-			'<li style="background-image: url(' + data.image +');">' +
+			'<li>' +
+				'<img src="' + data.image + '">' +
 				'<div class="mask"></div>' +
 						'<div class="description">' +
 							'<a href="' + data.url + '">' + data.title + '</a>' +
@@ -56,23 +57,32 @@ function renderColumn(node, url) {
 	});
 }
 
-$(document).ready(function() {
-	$.get("header.html", function(data) {
-		$("#header").html(data);
-		renderMenuWithHighlight(0);
-		renderColumn($('#activity'), 'cms/intro/activity.json');
-		renderColumn($('#paperwork'), 'cms/paper/paper_list.json');
-		renderColumn($('#news'), 'cms/intro/news.json')
-		renderSlide('cms/index.json');
-		$('#content').show();
-		$.get("footer.html", function(data) {
-			$("#footer").html(data);
+function loadIndex(en) {
+	if (en) {
+		var header = "header_en.html";
+		var footer = "footer_en.html";
+	} else {
+		var header = "header.html";
+		var footer = "footer.html";
+	}
+	$(document).ready(function() {
+		$.get(header, function(data) {
+			$("#header").html(data);
+			renderMenuWithHighlight(0);
+			renderColumn($('#activity'), 'cms/intro/activity.json');
+			renderColumn($('#paperwork'), 'cms/paper/paper_list.json');
+			renderColumn($('#news'), 'cms/intro/news.json')
+			renderSlide('cms/index.json');
+			$('#content').show();
+			$.get(footer, function(data) {
+				$("#footer").html(data);
+			}).error(function(j, s, t) {
+				$('#footer').html('<p>Failed to load footer.</p>');
+				console.log(s);
+			});
 		}).error(function(j, s, t) {
-			$('#footer').html('<p>Failed to load footer.</p>');
+			$('#header').html('<p>Failed to load header.</p>');
 			console.log(s);
 		});
-	}).error(function(j, s, t) {
-		$('#header').html('<p>Failed to load header.</p>');
-		console.log(s);
 	});
-});
+}

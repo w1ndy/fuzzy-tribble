@@ -84,7 +84,7 @@ function renderGrid(tag, desc) {
 			} else {
 				$('.gridcont').append(grid.f(
 					data.grids[i].image,
-					data.base_url + p + '&a=' + data.grids[i].url, 
+					data.base_url + p + '&a=' + data.grids[i].url,
 					data.grids[i].title));
 			}
 		}
@@ -125,13 +125,18 @@ function renderList(tag, desc) {
 	}).error(function(j, s, t) {console.log(s); });
 }
 
-function renderContent(column) {
-	console.log('rendering content for ' + column);
-	$.get('cms/cms.json', function(data) {
+function renderContent(column, en) {
+	if (en) {
+    var cms = 'cms/cms_en.json';
+  } else {
+    var cms = 'cms/cms.json';
+  }
+	$.get(cms, function(data) {
 		if(typeof data == 'string') data = eval('(' + data + ')');
 		data = data[column];
 		$('.sidebar_header').html('<p>' + data.page_name + '</p>');
 		$('#loc_entry_1').html('<p>' + data.page_name + '</p>');
+    if (en) $('#loc_entry_1').css('width', data.width + 'px')
 		var sidebar_navi = $('.sidebar_navi ul');
 		for(var s in data.columns) {
 			sidebar_navi.append('<li><a href="'+ data.base_url + '?c=' + s + '">' + data.columns[s].name + '</a></li>');
@@ -149,6 +154,7 @@ function renderContent(column) {
 		if(sp == '')
 			p = 0;
 
+    if (en) $('#loc_entry_2').css('width', data.columns[c].width + 'px')
 		if(sa == '') {
 			$('#loc_entry_2').html('<p>' + data.columns[c].name + '</p>');
 			$('#loc_sep_1').show();
@@ -211,17 +217,25 @@ function renderContent(column) {
 	});
 }
 
-function loadContent(column) {
+function loadContent(column, en) {
+  if (en) {
+    var header = "header_en.html";
+    var footer = "footer_en.html";
+    var template = "cms/cms_template_en.html";
+  } else {
+    var header = "header.html";
+    var footer = "footer.html";
+    var template = "cms/cms_template.html";
+  }
 	$(document).ready(function() {
-		$.get("header.html", function(data) {
+		$.get(header, function(data) {
 			$("#header").html(data);
 			renderMenuWithHighlight(column + 1);
-			$.get("cms/cms_template.html", function(data) {
+			$.get(template, function(data) {
 				$("#content").html(data);
-				renderContent(column);
+				renderContent(column, en);
 				$("#content").show();
-
-				$.get("footer.html", function(data) {
+				$.get(footer, function(data) {
 					$("#footer").html(data);
 				}).error(function(j, s, t) {
 					$('#footer').html('<p>Failed to load footer.</p>');
@@ -240,13 +254,13 @@ function loadContent(column) {
 
 $(window).scroll(function(e) {
 	$elem = $(".sidebar");
-	if($(window).scrollTop() > 105) {
+	if($(window).scrollTop() > 115) {
 		if($elem.css("position") != "fixed") {
-			$elem.css({'position': 'fixed', 'top': '50px', 'right':''+($(window).width() - 1000)/2+'px'});
+			$elem.addClass('sidebar_float');
 		}
 	} else {
 		if($elem.css("position") == "fixed") {
-			$elem.css({'position': '','top':'', 'right':''});
+			$elem.removeClass('sidebar_float');
 		}
 	}
 });
