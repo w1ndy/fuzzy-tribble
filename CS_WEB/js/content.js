@@ -17,15 +17,15 @@ function getParameterByName(name) {
 
 function renderPageButton(current_page, page_count, link_script) {
 	if(current_page != 1)
-		$('#pager').append('<div id="pageleft" class="pagebutton"><a href="' + link_script(current_page - 1) + '">&lt;</a></div>');
+		$('#pager').append('<div class="pagebutton"><a href="' + link_script(current_page - 1) + '">&lt;</a></div>');
 	for(var i = 1; i <= page_count; i++) {
     if(i == current_page) {
-		  $('#pager').append('<div id="page' + i + '" class="pagebutton nowpage"><a href="' + link_script(i) + '">' + i + '</a></div>');
+		  $('#pager').append('<div class="pagebutton nowpage"><a href="' + link_script(i) + '">' + i + '</a></div>');
     } else {
-      $('#pager').append('<div id="page' + i + '" class="pagebutton"><a href="' + link_script(i) + '">' + i + '</a></div>');
+      $('#pager').append('<div class="pagebutton"><a href="' + link_script(i) + '">' + i + '</a></div>');
     }
 	}
-	if(current_page != page_count) $('#pager').append('<div id="pageright" class="pagebutton"><a href="' + link_script(current_page + 1) + '">&gt;</a></div>');
+	if(current_page != page_count) $('#pager').append('<div class="pagebutton"><a href="' + link_script(current_page + 1) + '">&gt;</a></div>');
 }
 
 function countPage(length, num_per_page) {
