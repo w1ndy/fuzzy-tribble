@@ -1,0 +1,144 @@
+[
+  {
+    "title": "Computer Science Department - Taishan College - Shandong University",
+    "loc_prompt": "Navigation",
+    "width": 120
+  },
+  [
+    {
+      "page_name": "About",
+      "width": 80
+    },
+    {
+      "name": "Introduction",
+      "type": 0,
+      "width": 120
+    },
+    {
+      "name": "News",
+      "type": 1,
+      "width": 80
+    },
+    {
+      "name": "Activities",
+      "type": 1,
+      "width": 100
+    }
+  ],
+  [
+    {
+      "page_name": "Teachers",
+      "width": 100
+    },
+    {
+      "name": "Teachers",
+      "type": -1,
+      "width": 100
+    }
+  ],
+  [
+    {
+      "page_name": "Education",
+      "width": 105
+    },
+    {
+      "name": "Education",
+      "type": -1,
+      "width": 105
+    }
+  ],
+  [
+    {
+      "page_name": "Resources",
+      "width": 105
+    },
+    {
+      "name": "Courseware",
+      "type": 1,
+      "width": 105
+    },
+    {
+      "name": "Exams",
+      "type": 1,
+      "width": 80
+    },
+    {
+      "name": "E-books",
+      "type": 1,
+      "width": 90
+    },
+    {
+      "name": "Experience",
+      "type": -1,
+      "width": 110
+    }
+  ],
+  [
+    {
+      "page_name": "Achievements",
+      "width": 130
+    },
+    {
+      "name": "Hall of Fame",
+      "type": 0,
+      "width": 120
+    },
+    {
+      "name": "Competitions",
+      "type": 1,
+      "width": 120
+    }
+  ],
+  [
+    {
+      "page_name": "Admission",
+      "width": 100
+    },
+    {
+      "name": "Information",
+      "type": 1,
+      "width": 120
+    },
+    {
+      "name": "Policy",
+      "type": 1,
+      "width": 90
+    },
+    {
+      "name": "Papers",
+      "type": 1,
+      "width": 90
+    }
+  ],
+  [
+    {
+      "page_name": "Utility",
+      "width": 70
+    },
+    {
+      "name": "Software",
+      "type": 1,
+      "width": 100
+    },
+    {
+      "name": "Tools",
+      "type": 1,
+      "width": 80
+    },
+    {
+      "name": "Websites",
+      "type": -1,
+      "width": 100
+    },
+    {
+      "name": "Games",
+      "type": -1,
+      "width": 90
+    },
+    {
+      "name": "Projects",
+      "type": -1,
+      "width": 90
+    }
+  ]
+]

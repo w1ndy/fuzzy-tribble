@@ -1,16 +1,27 @@
 Modernizr.load({
 	test: Modernizr.csstransitions,
-	yep : 'css/transition.css',
-	nope: 'js/transition.js'
+	yep : 'css/index-transition.css',
+	nope: 'js/index-transition.js'
 });
 
 function insertItem(node, data, baseurl) {
 	target = $('.itemlist', node);
 	if(target.length) {
 		target.append('<tr><td class="item_dot"></td><td class="item_title"><a href="' +
-			((typeof data.url == 'string') ? data.url : baseurl + '1&a=' + data.url.toString()) +
+			((typeof data.url == 'string') ? data.url : baseurl + '&amp;a=' + data.url) +
 			'">' + data.title + '</a></td><td class="item_date">' + data.date + '</td></tr>');
 	}
+}
+
+function renderColumn(node, lang, section, column) {
+	$.get('content_' + lang + '/' + section + '/' + column + '/0.json', function(data) {
+		if(typeof data == 'string') data = eval('(' + data + ')');
+		for(var i = 0; i < (data.length > 5 ? 5 : data.length); i++) {
+			insertItem(node, data[i], 'content.html?s=' + section + '&amp;c=' + column);
+		}
+	}).error(function(j, s, t) {
+		console.log(s);
+	});
 }
 
 function insertSlide(data) {
@@ -21,7 +32,7 @@ function insertSlide(data) {
 				'<img src="' + data.image + '">' +
 				'<div class="mask"></div>' +
 						'<div class="description">' +
-							'<a href="' + data.url + '">' + data.title + '</a>' +
+							'<a href="content.html?' + data.url + '">' + data.title + '</a>' +
 							'<p>' + data.desc + '</p>' +
 						'</div>' +
 					'</li>');
@@ -31,8 +42,8 @@ function insertSlide(data) {
 function renderSlide(url) {
 	$.get(url, function(data) {
 		if(typeof data == 'string') data = eval('(' + data + ')');
-		for(var i = 0; i < data.slides.length; i++) {
-			insertSlide(data.slides[i]);
+		for(var i = 0; i < data.length; i++) {
+			insertSlide(data[i]);
 		}
 		$('#slide').unslider({
 			speed: 500,
@@ -46,36 +57,21 @@ function renderSlide(url) {
 	});
 }
 
-function renderColumn(node, url) {
-	$.get(url, function(data) {
-		if(typeof data == 'string') data = eval('(' + data + ')');
-		for(var i = 0; i < (data.articles.length > 5 ? 5 : data.articles.length); i++) {
-			insertItem(node, data.articles[i], data.base_url);
-		}
-	}).error(function(j, s, t) {
-		console.log(s);
-	});
-}
-
-function loadIndex(en) {
-	if (en) {
-		var header = "header_en.html";
-		var footer = "footer_en.html";
-	} else {
-		var header = "header.html";
-		var footer = "footer.html";
-	}
-	$(document).ready(function() {
-		$.get(header, function(data) {
+$(document).ready(function() {
+	var lang = $.cookie('language');
+	if(!lang) lang = 'cn';
+	$.get('index_' + lang + '.html', function(data) {
+		$("#content").html(data);
+		$.get('header_' + lang + '.html', function(data) {
 			$("#header").html(data);
-			renderMenuWithHighlight(0);
-			renderColumn($('#activity'), 'cms/intro/activity.json');
-			renderColumn($('#paperwork'), 'cms/paper/paper_list.json');
-			renderColumn($('#news'), 'cms/intro/news.json')
-			renderSlide('cms/index.json');
+			renderMenu(0);
+			renderColumn($('#s1c2'), lang, 1, 2);
+			renderColumn($('#s1c3'), lang, 1, 3);
+			renderColumn($('#s6c1'), lang, 6, 1)
+			renderSlide('content_' + lang + '/slides.json');
 			$('#content').show();
-			$.get(footer, function(data) {
-				$("#footer").html(data);
+			$.get('footer_' + lang + '.html', function(data) {
+			$("#footer").html(data);
 			}).error(function(j, s, t) {
 				$('#footer').html('<p>Failed to load footer.</p>');
 				console.log(s);
@@ -84,5 +80,8 @@ function loadIndex(en) {
 			$('#header').html('<p>Failed to load header.</p>');
 			console.log(s);
 		});
+	}).error(function(j, s, t) {
+		$('#content').html('<p>Failed to load index.</p>');
+		console.log(s);
 	});
-}
+});
