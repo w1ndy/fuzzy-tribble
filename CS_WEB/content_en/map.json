@@ -2,7 +2,7 @@
   {
     "title": "Computer Science Department - Taishan College - Shandong University",
     "loc_prompt": "Navigation",
-    "width": 120
+    "width": 110
   },
   [
     {
@@ -55,7 +55,7 @@
     {
       "name": "Courseware",
       "type": 1,
-      "width": 105
+      "width": 110
     },
     {
       "name": "Exams",
@@ -95,9 +95,9 @@
       "width": 100
     },
     {
-      "name": "Information",
+      "name": "Updates",
       "type": 1,
-      "width": 120
+      "width": 100
     },
     {
       "name": "Policy",

@@ -92,7 +92,6 @@ body {
 	float: right;
 	margin: 20px 10px;
 	background: url(../images/tsxtlogo.png) no-repeat;
-	background-position: 100% 50%;
 }
 
 #menubar {
@@ -399,13 +398,11 @@ body {
 
 #loc_entry_1, #loc_entry_2 {
 	height: 100%;
-	width: 80px;
+	width: 100px;
 	text-align: center;
 	float: left;
 	line-height: 35px;
 	margin-right: -10px;
-	padding-left:15px;
-	padding-right:15px;
 	font-size:small;
 }
 
@@ -434,7 +431,6 @@ body {
 	float:left;
 	margin-right: -10px;
 	background: url(../images/next.png);
-	background-position: 50% 50%;
 	display: none;
 }
 
@@ -473,7 +469,6 @@ body {
 
 .newsdot {
 	width: 20px;
-	height: 23px;
 	background: url(../images/dot.gif) no-repeat;
 	background-position: 50% 50%;
 }

@@ -96,6 +96,7 @@ function renderList(tag, lang, section, column, page) {
 function renderContent(section, lang) {
 	$.get('content_' + lang + '/map.json', function(data) {
 		if(typeof data == 'string') data = eval('(' + data + ')');
+    var site_title = data[0].title;
     $("#loc_prompt").text(data[0].loc_prompt);
     if(data[0].width) $("#loc_prompt").css('width', data[0].width + 'px');
     data = data[section];
@@ -108,6 +109,7 @@ function renderContent(section, lang) {
 		}
     var column = parseInt(getParameterByName('c'));
 		if(isNaN(column) || column < 1 || column >= data.length) column = 1;
+    document.title = data[column].name + ' - ' + site_title;
     if(data[column].width) $('#loc_entry_2').css('width', data[column].width + 'px')
     var article = parseInt(getParameterByName('a'));
 		if(isNaN(article)) {
@@ -148,6 +150,7 @@ function renderContent(section, lang) {
 				var title_node = $('#placeholder .article .article_title');
 				if(title_node.length != 0) {
 					var title = title_node.text();
+          document.title = title + ' - ' + site_title;
 				} else {
 					var title = a;
 				}
