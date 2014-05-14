@@ -17,7 +17,7 @@
 
 <div id="menubar">
 	<div id="menubar-content">
-		<div id="menu0" class="menubar-content-menu">
+		<div class="menubar-content-menu">
 			<a href=".">首页</a>
 		</div>
 		<div id="menubar-content-helper">
@@ -47,13 +47,19 @@
 		$.get('content_cn/map.json', function(data) {
 			if(typeof data == 'string') data = eval('(' + data + ')');
 			if(highlight >= data.length) window.location.href = '.';
-			if(highlight == 0) document.title = data[0].title;
-			for(var i = 1; i < data.length; i++) {
-				$("#menubar-content-helper").before('<div id="menu' + i +
-					'" class="menubar-content-menu"><a href="content.html?s=' +
-					i + '">' + data[i][0].page_name + '</a></div>');
+			if(highlight == 0) {
+				document.title = data[0].title;
+				$('.menubar-content-menu').addClass('menubar-content-highlight');
 			}
-			$('#menu' + highlight).addClass('menubar-content-highlight');
+			for(var i = 1; i < data.length; i++) {
+				if(i == highlight) {
+					$("#menubar-content-helper").before('<div class="menubar-content-menu menubar-content-highlight"><a href="content.html?s=' +
+						i + '">' + data[i][0].page_name + '</a></div>');
+				} else {
+					$("#menubar-content-helper").before('<div class="menubar-content-menu"><a href="content.html?s=' +
+						i + '">' + data[i][0].page_name + '</a></div>');
+				}
+			}
 		}).fail(function(j, s, t) {
 			console.log(s);
 		});
