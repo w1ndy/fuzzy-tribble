@@ -60,26 +60,29 @@ function renderSlide(url) {
 $(document).ready(function() {
 	var lang = $.cookie('language');
 	if(!lang) lang = 'cn';
+	$.get('header_' + lang + '.html', function(data) {
+		$("#header").html(data);
+		renderMenu(0);
+	}).error(function(j, s, t) {
+		$('#header').html('<p>Failed to load header.</p>');
+		console.log(s);
+	});
+	$.get('footer_' + lang + '.html', function(data) {
+		$("#footer").html(data);
+	}).error(function(j, s, t) {
+		$('#footer').html('<p>Failed to load footer.</p>');
+		console.log(s);
+	});
 	$.get('index_' + lang + '.html', function(data) {
 		$("#content").html(data);
-		$.get('header_' + lang + '.html', function(data) {
-			$("#header").html(data);
-			renderMenu(0);
-			renderColumn($('#s1c2'), lang, 1, 2);
-			renderColumn($('#s1c3'), lang, 1, 3);
-			renderColumn($('#s6c1'), lang, 6, 1)
-			renderSlide('content_' + lang + '/slides.json');
-			$('#content').show();
-			$.get('footer_' + lang + '.html', function(data) {
-			$("#footer").html(data);
-			}).error(function(j, s, t) {
-				$('#footer').html('<p>Failed to load footer.</p>');
-				console.log(s);
-			});
-		}).error(function(j, s, t) {
-			$('#header').html('<p>Failed to load header.</p>');
-			console.log(s);
-		});
+		renderSlide('content_' + lang + '/slides.json');
+		renderColumn($('#s1c2'), lang, 1, 2);
+		renderColumn($('#s1c3'), lang, 1, 3);
+		renderColumn($('#s6c1'), lang, 6, 1);
+		if (Modernizr.touch) {
+			$('.image_popup').css('bottom', '0');
+			$('.gallery_container span').css('display', 'inline');
+		}
 	}).error(function(j, s, t) {
 		$('#content').html('<p>Failed to load index.</p>');
 		console.log(s);

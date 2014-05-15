@@ -110,8 +110,6 @@ function renderContent(section, lang) {
 		var article = parseInt(getParameterByName('a'));
 		if(isNaN(article)) {
 			$('#loc_entry_2').html(data[column].name);
-			$('#loc_sep_1').show();
-			$('#loc_entry_2').show();
 			switch (data[column].type) {
 			case 0:
 				$.get('content_' + lang + '/' + section + '/' + column + '.html', function(data) {
@@ -137,10 +135,7 @@ function renderContent(section, lang) {
 			}
 		} else {
 			$('#loc_entry_2').html('<a href="content.html?s=' + section + '&amp;c=' + column + '">' + data[column].name + '</a>');
-			$('#loc_sep_1').show();
-			$('#loc_entry_2').show();
 			$('#loc_sep_2').show();
-			$('#loc_entry_3').show();
 			$.get('content_' + lang + '/' + section + '/' + column + '/' + article + '.html', function(data) {
 				$('#placeholder').html(data);
 				var title_node = $('#placeholder .article .article_title');
@@ -159,13 +154,11 @@ function renderContent(section, lang) {
 				});
 			});
 		}
-		$('#placeholder').show();
 	}).error(function(j, s, t) {
 		console.log(s);
 		$('#loc_entry_1').html('404');
 		$.get('content_shared/404.html', function(data) {
 			$('#placeholder').html(data);
-			$('#placeholder').show();
 		});
 	});
 }
@@ -178,18 +171,17 @@ $(document).ready(function() {
 	$.get('header_' + lang + '.html', function(data) {
 		$("#header").html(data);
 		renderMenu(section);
-		renderContent(section, lang);
-		$("#content").show();
-		$.get('footer_' + lang + '.html', function(data) {
-			$("#footer").html(data);
-		}).error(function(j, s, t) {
-			$('#footer').html('<p>Failed to load footer.</p>');
-			console.log(s);
-		});
 	}).error(function(j, s, t) {
 		$('#header').html('<p>Failed to load header.</p>');
 		console.log(s);
 	});
+	$.get('footer_' + lang + '.html', function(data) {
+		$("#footer").html(data);
+	}).error(function(j, s, t) {
+		$('#footer').html('<p>Failed to load footer.</p>');
+		console.log(s);
+	});
+	renderContent(section, lang);
 });
 
 $(window).scroll(function(e) {

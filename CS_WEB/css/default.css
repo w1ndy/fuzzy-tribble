@@ -6,6 +6,8 @@ body, div, ul, li, p {
 body {
 	font-family: "Heiti SC", "Lucida Grenda", "Microsoft YaHei", sans-serif;
 	font-size: 14px;
+	-webkit-font-smoothing: subpixel-antialiased;
+	-webkit-text-size-adjust: 100%;
 }
 
 #header {
@@ -15,7 +17,6 @@ body {
 }
 
 #content {
-	display: none;
 	width: 1000px;
 	margin-left: auto;
 	margin-right: auto;
@@ -409,10 +410,6 @@ body {
 	font-size:small;
 }
 
-#loc_entry_2 {
-	display: none;
-}
-
 #loc_entry_3 {
 	height: 100%;
 	width: auto;
@@ -424,7 +421,6 @@ body {
 	overflow:hidden;
 	text-overflow: ellipsis;
 	font-size:small;
-	display: none;
 }
 
 #loc_sep_1, #loc_sep_2 {
@@ -433,6 +429,9 @@ body {
 	float:left;
 	margin-right: -10px;
 	background: url(../images/next.png);
+}
+
+#loc_sep_2 {
 	display: none;
 }
 
@@ -451,7 +450,6 @@ body {
 	margin-right: 20px;
 	margin-bottom: 60px;
 	width: auto;
-	display: none;
 	text-indent: 2em;
 }
 
@@ -605,9 +603,6 @@ only screen and (min-resolution: 120dpi) {
 		background-size: 20px 20px;
 	}
 	#slide .dots li {
-		-webkit-backface-visibility: hidden;
-	}
-	#menubar-content {
 		-webkit-backface-visibility: hidden;
 	}
 }
