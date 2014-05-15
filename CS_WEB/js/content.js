@@ -97,11 +97,9 @@ function renderContent(section, lang) {
 		if(typeof data == 'string') data = eval('(' + data + ')');
 		var site_title = data[0].title;
 		$("#loc_prompt").text(data[0].loc_prompt);
-		if(data[0].width) $("#loc_prompt").css('width', data[0].width + 'px');
 		data = data[section];
-		$('#sidebar_header').html('<p>' + data[0].page_name + '</p>');
-		$('#loc_entry_1').html('<p>' + data[0].page_name + '</p>');
-		if(data[0].width) $('#loc_entry_1').css('width', data[0].width + 'px')
+		$('#sidebar_header').html(data[0].page_name);
+		$('#loc_entry_1').html(data[0].page_name);
 		var sidebar_navi = $('#sidebar_navi ul');
 		for(var s = 1; s < data.length; s++) {
 			sidebar_navi.append('<li><a href="content?s=' + section + '&amp;c=' + s + '">' + data[s].name + '</a></li>');
@@ -109,10 +107,9 @@ function renderContent(section, lang) {
 		var column = parseInt(getParameterByName('c'));
 		if(isNaN(column) || column < 1 || column >= data.length) column = 1;
 		document.title = data[column].name + ' - ' + site_title;
-		if(data[column].width) $('#loc_entry_2').css('width', data[column].width + 'px')
 		var article = parseInt(getParameterByName('a'));
 		if(isNaN(article)) {
-			$('#loc_entry_2').html('<p>' + data[column].name + '</p>');
+			$('#loc_entry_2').html(data[column].name);
 			$('#loc_sep_1').show();
 			$('#loc_entry_2').show();
 			switch (data[column].type) {
@@ -121,7 +118,7 @@ function renderContent(section, lang) {
 					$('#placeholder').html(data);
 				}).error(function(j, s, t) {
 					console.log(s);
-					$('#loc_entry_2').html('<p>404</p>');
+					$('#loc_entry_2').html('404');
 					$.get('content_shared/404.html', function(data) {
 						$('#placeholder').html(data);
 					});
@@ -153,10 +150,10 @@ function renderContent(section, lang) {
 				} else {
 					var title = a;
 				}
-				$('#loc_entry_3').html('<p>' + title + '</p>');
+				$('#loc_entry_3').html(title);
 			}).error(function(j, s, t) {
 				console.log(s);
-				$('#loc_entry_3').html('<p>404</p>');
+				$('#loc_entry_3').html('404');
 				$.get('content_shared/404.html', function(data) {
 					$('#placeholder').html(data);
 				});
@@ -165,7 +162,7 @@ function renderContent(section, lang) {
 		$('#placeholder').show();
 	}).error(function(j, s, t) {
 		console.log(s);
-		$('#loc_entry_1').html('<p>404</p>');
+		$('#loc_entry_1').html('404');
 		$.get('content_shared/404.html', function(data) {
 			$('#placeholder').html(data);
 			$('#placeholder').show();

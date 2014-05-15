@@ -16,7 +16,7 @@
 
 <div id="menubar">
 	<div id="menubar-content">
-		<div class="menubar-content-menu" style="width:80px">
+		<div class="menubar-content-menu">
 			<a href=".">Home</a>
 		</div>
 		<div id="menubar-content-helper">
@@ -52,11 +52,11 @@
 			}
 			for(var i = 1; i < data.length; i++) {
 				if(i == highlight) {
-					$("#menubar-content-helper").before('<div class="menubar-content-menu menubar-content-highlight" style="width:' +
-						data[i][0].width + 'px"><a href="content.html?s=' + i + '">' + data[i][0].page_name + '</a></div>');
+					$("#menubar-content-helper").before('<div class="menubar-content-menu menubar-content-highlight"><a href="content.html?s=' +
+						i + '">' + data[i][0].page_name + '</a></div>');
 				} else {
-					$("#menubar-content-helper").before('<div class="menubar-content-menu" style="width:' +
-						data[i][0].width + 'px"><a href="content.html?s=' + i + '">' + data[i][0].page_name + '</a></div>');
+					$("#menubar-content-helper").before('<div class="menubar-content-menu"><a href="content.html?s=' +
+						i + '">' + data[i][0].page_name + '</a></div>');
 				}
 			}
 		}).fail(function(j, s, t) {
