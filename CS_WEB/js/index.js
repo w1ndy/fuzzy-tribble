@@ -127,15 +127,18 @@ function renderContent(section, lang) {
 		var site_title = data[0].title;
 		$('#loc_prompt').text(data[0].loc_prompt);
 		data = data[section];
-		$('#sidebar_header').text(data[0].page_name);
 		$('#loc_entry_1').text(data[0].page_name);
-		var sidebar_navi = $('#sidebar_navi ul');
-		for(var s = 1; s < data.length; s++) {
-			sidebar_navi.append('<li><a href="?s=' + section + '&amp;c=' + s + '">' + data[s].name + '</a></li>');
-		}
 		var column = parseInt(getParameterByName('c'));
 		if(isNaN(column) || column < 1 || column >= data.length) column = 1;
 		document.title = data[column].name + ' - ' + site_title;
+		$('#sidebar_header').text(data[0].page_name);
+		for(var s = 1; s < data.length; s++) {
+			if(s == column) {
+				$('#sidebar_navi ul').append('<li><a href="?s=' + section + '&amp;c=' + s + '"><strong>' + data[s].name + '</strong></a></li>');
+			} else {
+				$('#sidebar_navi ul').append('<li><a href="?s=' + section + '&amp;c=' + s + '">' + data[s].name + '</a></li>');
+			}
+		}
 		var article = parseInt(getParameterByName('a'));
 		if(isNaN(article)) {
 			$('#loc_entry_2').text(data[column].name);
