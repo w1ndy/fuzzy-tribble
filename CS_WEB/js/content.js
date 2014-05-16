@@ -102,7 +102,7 @@ function renderContent(section, lang) {
 		$('#loc_entry_1').html(data[0].page_name);
 		var sidebar_navi = $('#sidebar_navi ul');
 		for(var s = 1; s < data.length; s++) {
-			sidebar_navi.append('<li><a href="content?s=' + section + '&amp;c=' + s + '">' + data[s].name + '</a></li>');
+			sidebar_navi.append('<li><a href="content.html?s=' + section + '&amp;c=' + s + '">' + data[s].name + '</a></li>');
 		}
 		var column = parseInt(getParameterByName('c'));
 		if(isNaN(column) || column < 1 || column >= data.length) column = 1;
