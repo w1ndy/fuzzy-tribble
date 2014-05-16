@@ -329,7 +329,7 @@ body {
 	width: 180px;
 }
 
-#sidebar_float {
+.sidebar_float {
 	position: fixed;
 	top: 50px;
 }

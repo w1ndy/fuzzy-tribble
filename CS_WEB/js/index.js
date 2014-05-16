@@ -224,7 +224,7 @@ $(document).ready(function() {
 			renderContent(section, lang);
 		});
 		$(window).scroll(function(e) {
-			$elem = $('.sidebar');
+			$elem = $('#sidebar');
 			if($(window).scrollTop() > 115) {
 				if($elem.css('position') != 'fixed') $elem.addClass('sidebar_float');
 			} else {
