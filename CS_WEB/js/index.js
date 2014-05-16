@@ -200,15 +200,13 @@ $(document).ready(function() {
 	var section = parseInt(getParameterByName('s'));
 	if(isNaN(section) || section < 1) {
 		section = 0;
-		$.getScript('js/unslider.min.js');
-		$('head').append('<link rel="stylesheet" type="text/css" href="css/index.css">');
-		Modernizr.load({
-			test: Modernizr.csstransitions,
-			yep : 'css/index-transition.css',
-			nope: 'js/index-transition.js'
-		});
 		$.get('index_' + lang + '.html', function(data) {
 			$('#content').html(data);
+			Modernizr.load({
+				test: Modernizr.csstransitions,
+				yep : 'css/index-transition.css',
+				nope: 'js/index-transition.js'
+			});
 			renderSlide('content_' + lang + '/slides.json');
 			renderColumn($('#s1c2'), lang, 1, 2);
 			renderColumn($('#s1c3'), lang, 1, 3);
