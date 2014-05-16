@@ -53,10 +53,10 @@
 			}
 			for(var i = 1; i < data.length; i++) {
 				if(i == highlight) {
-					$("#menubar-content-helper").before('<div class="menubar-content-menu menubar-content-highlight"><a href="content.html?s=' +
+					$("#menubar-content-helper").before('<div class="menubar-content-menu menubar-content-highlight"><a href="?s=' +
 						i + '">' + data[i][0].page_name + '</a></div>');
 				} else {
-					$("#menubar-content-helper").before('<div class="menubar-content-menu"><a href="content.html?s=' +
+					$("#menubar-content-helper").before('<div class="menubar-content-menu"><a href="?s=' +
 						i + '">' + data[i][0].page_name + '</a></div>');
 				}
 			}
