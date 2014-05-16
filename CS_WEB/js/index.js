@@ -73,8 +73,14 @@ $(document).ready(function() {
 		$('#footer').html('<p>Failed to load footer.</p>');
 		console.log(s);
 	});
-	$.get('index_' + lang + '.html', function(data) {
+	$.get('main.html', function(data) {
 		$("#content").html(data);
+		$("[lang]").each(function() {
+			if ($(this).attr("lang") == lang)
+				$(this).show();
+			else
+				$(this).hide();
+		});
 		renderSlide('content_' + lang + '/slides.json');
 		renderColumn($('#s1c2'), lang, 1, 2);
 		renderColumn($('#s1c3'), lang, 1, 3);

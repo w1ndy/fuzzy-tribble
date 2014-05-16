@@ -98,8 +98,8 @@ function renderContent(section, lang) {
 		var site_title = data[0].title;
 		$("#loc_prompt").text(data[0].loc_prompt);
 		data = data[section];
-		$('#sidebar_header').html(data[0].page_name);
-		$('#loc_entry_1').html(data[0].page_name);
+		$('#sidebar_header').text(data[0].page_name);
+		$('#loc_entry_1').text(data[0].page_name);
 		var sidebar_navi = $('#sidebar_navi ul');
 		for(var s = 1; s < data.length; s++) {
 			sidebar_navi.append('<li><a href="content.html?s=' + section + '&amp;c=' + s + '">' + data[s].name + '</a></li>');
@@ -109,14 +109,14 @@ function renderContent(section, lang) {
 		document.title = data[column].name + ' - ' + site_title;
 		var article = parseInt(getParameterByName('a'));
 		if(isNaN(article)) {
-			$('#loc_entry_2').html(data[column].name);
+			$('#loc_entry_2').text(data[column].name);
 			switch (data[column].type) {
 			case 0:
 				$.get('content_' + lang + '/' + section + '/' + column + '.html', function(data) {
 					$('#placeholder').html(data);
 				}).error(function(j, s, t) {
 					console.log(s);
-					$('#loc_entry_2').html('404');
+					$('#loc_entry_2').text('404');
 					$.get('content_shared/404.html', function(data) {
 						$('#placeholder').html(data);
 					});
@@ -145,10 +145,10 @@ function renderContent(section, lang) {
 				} else {
 					var title = a;
 				}
-				$('#loc_entry_3').html(title);
+				$('#loc_entry_3').text(title);
 			}).error(function(j, s, t) {
 				console.log(s);
-				$('#loc_entry_3').html('404');
+				$('#loc_entry_3').text('404');
 				$.get('content_shared/404.html', function(data) {
 					$('#placeholder').html(data);
 				});
@@ -156,7 +156,7 @@ function renderContent(section, lang) {
 		}
 	}).error(function(j, s, t) {
 		console.log(s);
-		$('#loc_entry_1').html('404');
+		$('#loc_entry_1').text('404');
 		$.get('content_shared/404.html', function(data) {
 			$('#placeholder').html(data);
 		});
