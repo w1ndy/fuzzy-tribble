@@ -29,7 +29,7 @@ $(document).ready(function() {
 				});
 			}
 		});
-		$('a', this).fadeIn(100);
+		$('span', this).fadeIn(100);
 	}, function() {
 		$(this).css({
 			'z-index':1,
@@ -64,6 +64,6 @@ $(document).ready(function() {
 				});
 			}
 		});
-		$('a', this).fadeOut(100);
+		$('span', this).fadeOut(100);
 	});
 });
