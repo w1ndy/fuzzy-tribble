@@ -232,7 +232,7 @@ body {
 
 #bottom-left-links {
 	position: relative;
-	padding-top: 18px;
+	padding-top: 12px;
 	list-style-type: none;
 	margin: 0;
 	text-align: right;
@@ -307,7 +307,7 @@ body {
 #bottom-legal {
 	position: absolute;
 	right: 30px;
-	top:228px;
+	top: 185px;
 	float: right;
 	width: 220px;
 }
