@@ -8,7 +8,104 @@
 		<link rel="stylesheet" type="text/css" href="css/default.css">
 		<script src="js/jquery-1.11.1.min.js"></script>
 		<script src="js/jquery.cookie.js"></script>
-		<script src="js/index.js"></script>
+		<script>
+			function renderSlide(content_deferred, url) {
+				$.getJSON(url, function(data) {
+					content_deferred.done(function() {
+						for(var i = 0; i < data.length; i++) {
+							$('#slide ul').append(
+								'<li>' +
+									'<img src="' + data[i].image + '">' +
+									'<div class="mask"></div>' +
+									'<div class="description">' +
+										'<a href="?' + data[i].url + '">' + data[i].title + '</a>' +
+										'<p>' + data[i].desc + '</p>' +
+									'</div>' +
+								'</li>');
+						}
+						$('#slide').unslider({speed: 500, delay: 4000, keys: true, dots: true, fluid: false});
+					});
+				});
+			}
+
+			function renderColumn(content_deferred, node, lang, section, column) {
+				$.getJSON('content_' + lang + '/' + section + '/' + column + '/0.json', function(data) {
+					content_deferred.done(function() {
+						for(var i = 0; i < (data.length > 5 ? 5 : data.length); i++) {
+							$(node + ' .itemlist').append('<tr><td class="item_dot"></td><td class="item_title"><a href="' +
+								((typeof data[i].url == 'string') ? data[i].url : '?s=' + section + '&amp;c=' +
+								column + '&amp;a=' + data[i].url) + '">' + data[i].title + '</a></td><td class="item_date">' +
+								data[i].date + '</td></tr>');
+						}
+					});
+				});
+			}
+
+			function getParameterByName(name) {
+				name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+				var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+					results = regex.exec(location.search);
+				return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+			}
+
+			$(document).ready(function() {
+				var lang = $.cookie('language');
+				if(!lang) lang = 'cn';
+				var map, map_deferred = new $.Deferred(), content_deferred = new $.Deferred();
+				$.getJSON('content_' + lang + '/map.json', function(data) {
+					map = data;
+					map_deferred.resolve();
+				});
+				var section = parseInt(getParameterByName('s'));
+				if(isNaN(section)) {
+					section = 0;
+					$.get('index_' + lang + '.html', function(data) {
+						$('#content').html(data);
+						content_deferred.resolve();
+						Modernizr.load({
+							test: Modernizr.csstransitions,
+							yep : 'css/index-transition.css',
+							nope: 'js/index-transition.js'
+						});
+						if (Modernizr.touch) {
+							$('.image_popup').css('bottom', '0');
+							$('.gallery_container span').css('display', 'inline');
+						}
+					}).error(function(j, s, t) {
+						$('#content').html('<p>Failed to load index.</p>');
+						console.log(s);
+					});
+					renderSlide(content_deferred, 'content_' + lang + '/slides.json');
+					renderColumn(content_deferred, '#s1c2', lang, 1, 2);
+					renderColumn(content_deferred, '#s1c3', lang, 1, 3);
+					renderColumn(content_deferred, '#s6c1', lang, 6, 1);
+				} else {
+					var column = parseInt(getParameterByName('c'));
+					var article = parseInt(getParameterByName('a'));
+					$.get('content.html', function(data) {
+						$('#content').html(data);
+						map_deferred.done(function() {
+							renderContent(map, section, column, article, lang)
+						});
+					});
+				}
+				$.get('header_' + lang + '.html', function(data) {
+					$('#header').html(data);
+					map_deferred.done(function() {
+						renderMenu(map, section);
+					});
+				}).error(function(j, s, t) {
+					$('#header').html('<p>Failed to load header.</p>');
+					console.log(s);
+				});
+				$.get('footer_' + lang + '.html', function(data) {
+					$('#footer').html(data);
+				}).error(function(j, s, t) {
+					$('#footer').html('<p>Failed to load footer.</p>');
+					console.log(s);
+				});
+			});
+		</script>
 	</head>
 	<body>
 		<div id="header"></div>

@@ -46,8 +46,7 @@
 	}
 
 	function renderGrid(tag, lang, section, column, page) {
-		$.get('content_' + lang + '/' + section + '/' + column + '/0.json').success(function (data) {
-			if(typeof data == 'string') data = eval('(' + data + ')');
+		$.getJSON('content_' + lang + '/' + section + '/' + column + '/0.json', function(data) {
 			var page_count = countPage(data.length, 3 * 4);
 			$(tag).html(
 				'<div class="gridcont"></div>' +
@@ -80,12 +79,11 @@
 				renderPageButton(page, page_count, function(page) {
 					return "javascript:renderGrid('" + tag + "','" + lang + "'," + section + "," + column + "," + page + ")";
 				});
-		}).error(function(j, s, t) {console.log(s); });
+		});
 	}
 
 	function renderList(tag, lang, section, column, page) {
-		$.get('content_' + lang + '/' + section + '/' + column + '/0.json').success(function (data) {
-			if(typeof data == 'string') data = eval('(' + data + ')');
+		$.getJSON('content_' + lang + '/' + section + '/' + column + '/0.json', function(data) {
 			var page_count = countPage(data.length, 15);
 			$(tag).html('<table id="newslist"></table><div id="pager_container"><div id="pager"></div></div>');
 			var start = (page - 1) * 15, end = page * 15;
@@ -103,14 +101,18 @@
 			renderPageButton(page, page_count, function(page) {
 				return "javascript:renderList('" + tag + "','" + lang + "'," + section + "," + column + "," + page + ")";
 			});
-		}).error(function(j, s, t) {console.log(s); });
+		});
 	}
 
-	function renderContent(section, column, article, lang) {
-		$.get('content_' + lang + '/map.json', function(data) {
-			if(typeof data == 'string') data = eval('(' + data + ')');
-			var site_title = data[0].title;
-			$('#loc_prompt').text(data[0].loc_prompt);
+	function renderContent(data, section, column, article, lang) {
+		var site_title = data[0].title;
+		$('#loc_prompt').text(data[0].loc_prompt);
+		if (section < 1 || section >= data.length) {
+			document.title = '404 - ' + site_title;
+			$('#loc_entry_1').text('404');
+			$('#placeholder').html(page_404);
+		} else {
+			$('#loc_sep_1').show();
 			data = data[section];
 			$('#loc_entry_1').text(data[0].page_name);
 			if(isNaN(column) || column < 1 || column >= data.length) column = 1;
@@ -163,10 +165,15 @@
 					$('#placeholder').html(page_404);
 				});
 			}
-		}).error(function(j, s, t) {
-			console.log(s);
-			$('#loc_entry_1').text('404');
-			$('#placeholder').html(page_404);
-		});
+		}
 	}
+
+	$(window).scroll(function(e) {
+		$elem = $('#sidebar');
+		if($(window).scrollTop() > 115) {
+			if($elem.css('position') != 'fixed') $elem.addClass('sidebar_float');
+		} else {
+			if($elem.css('position') == 'fixed') $elem.removeClass('sidebar_float');
+		}
+	});
 </script>

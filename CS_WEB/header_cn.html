@@ -43,26 +43,20 @@
 		});
 	});
 
-	function renderMenu(highlight) {
-		$.get('content_cn/map.json', function(data) {
-			if(typeof data == 'string') data = eval('(' + data + ')');
-			if(highlight >= data.length) window.location.href = '.';
-			if(highlight == 0) {
-				document.title = data[0].title;
-				$('.menubar-content-menu').addClass('menubar-content-highlight');
+	function renderMenu(data, highlight) {
+		if(highlight == 0) {
+			document.title = data[0].title;
+			$('.menubar-content-menu').addClass('menubar-content-highlight');
+		}
+		for(var i = 1; i < data.length; i++) {
+			if(i == highlight) {
+				$("#menubar-content-helper").before('<div class="menubar-content-menu menubar-content-highlight"><a href="?s=' +
+					i + '">' + data[i][0].page_name + '</a></div>');
+			} else {
+				$("#menubar-content-helper").before('<div class="menubar-content-menu"><a href="?s=' +
+					i + '">' + data[i][0].page_name + '</a></div>');
 			}
-			for(var i = 1; i < data.length; i++) {
-				if(i == highlight) {
-					$("#menubar-content-helper").before('<div class="menubar-content-menu menubar-content-highlight"><a href="?s=' +
-						i + '">' + data[i][0].page_name + '</a></div>');
-				} else {
-					$("#menubar-content-helper").before('<div class="menubar-content-menu"><a href="?s=' +
-						i + '">' + data[i][0].page_name + '</a></div>');
-				}
-			}
-		}).fail(function(j, s, t) {
-			console.log(s);
-		});
+		}
 	}
 
 	$(window).scroll(function(e) {
