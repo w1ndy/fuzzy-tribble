@@ -129,10 +129,9 @@
 				$('#loc_entry_2').text(data[column].name);
 				switch (data[column].type) {
 				case 0:
-					$.get('content_' + lang + '/' + section + '/' + column + '.html', function(data) {
-						$('#placeholder').html(data);
-					}).error(function(j, s, t) {
-						console.log(s);
+					$.getJSON('content_' + lang + '/' + section + '/' + column + '.json', function(data) {
+						$('#placeholder').html(data.html);
+					}).fail(function() {
 						$('#loc_entry_2').text('404');
 						$('#placeholder').html(page_404);
 					});
@@ -149,9 +148,11 @@
 			} else {
 				$('#loc_entry_2').html('<a href="?s=' + section + '&amp;c=' + column + '">' + data[column].name + '</a>');
 				$('#loc_sep_2').show();
-				$.get('content_' + lang + '/' + section + '/' + column + '/' + article + '.html', function(data) {
-					$('#placeholder').html(data);
-					var title_node = $('#placeholder .article .article_title');
+				$.getJSON('content_' + lang + '/' + section + '/' + column + '/' + article + '.json', function(data) {
+					$('#placeholder').append('<div class="article_title">' + data.title + '</div>');
+					if(data.date) $('#placeholder').append('<div class="article_date">' + data.date + '</div>');
+					$('#placeholder').append('<div class="article_content">' + data.html + '</div>');
+					var title_node = $('#placeholder .article_title');
 					if(title_node.length != 0) {
 						var title = title_node.text();
 						document.title = title + ' - ' + site_title;
@@ -159,8 +160,7 @@
 						var title = a;
 					}
 					$('#loc_entry_3').text(title);
-				}).error(function(j, s, t) {
-					console.log(s);
+				}).fail(function() {
 					$('#loc_entry_3').text('404');
 					$('#placeholder').html(page_404);
 				});

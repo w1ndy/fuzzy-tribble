@@ -703,7 +703,7 @@ body {
 #article_container {
 	width: 800px;
 	height: auto;
-	float:left;
+	float: left;
 	padding-top: 10px;
 }
 
@@ -860,12 +860,8 @@ body {
 	color: #fff !important;
 }
 
-.article {
-	padding-top: 20px;
-	padding-bottom: 40px;
-}
-
 .article_title {
+	padding-top: 20px;
 	text-indent: 0;
 	text-align: center;
 	font-size: large;
@@ -880,8 +876,10 @@ body {
 }
 
 .article_content {
+	padding-bottom: 40px;
 	margin-top: 25px;
 }
+
 .article_content img {
 	display: block;
 	width: 70%;

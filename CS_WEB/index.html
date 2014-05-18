@@ -59,8 +59,7 @@
 				var section = parseInt(getParameterByName('s'));
 				if(isNaN(section)) {
 					section = 0;
-					$.get('index_' + lang + '.html', function(data) {
-						$('#content').html(data);
+					$('#content').load('index_' + lang + '.html', function() {
 						content_deferred.resolve();
 						Modernizr.load({
 							test: Modernizr.csstransitions,
@@ -71,9 +70,6 @@
 							$('.image_popup').css('bottom', '0');
 							$('.gallery_container span').css('display', 'inline');
 						}
-					}).error(function(j, s, t) {
-						$('#content').html('<p>Failed to load index.</p>');
-						console.log(s);
 					});
 					renderSlide(content_deferred, 'content_' + lang + '/slides.json');
 					renderColumn(content_deferred, '#s1c2', lang, 1, 2);
@@ -82,28 +78,18 @@
 				} else {
 					var column = parseInt(getParameterByName('c'));
 					var article = parseInt(getParameterByName('a'));
-					$.get('content.html', function(data) {
-						$('#content').html(data);
+					$('#content').load('content.html', function() {
 						map_deferred.done(function() {
 							renderContent(map, section, column, article, lang)
 						});
 					});
 				}
-				$.get('header_' + lang + '.html', function(data) {
-					$('#header').html(data);
+				$('#header').load('header_' + lang + '.html', function() {
 					map_deferred.done(function() {
 						renderMenu(map, section);
 					});
-				}).error(function(j, s, t) {
-					$('#header').html('<p>Failed to load header.</p>');
-					console.log(s);
 				});
-				$.get('footer_' + lang + '.html', function(data) {
-					$('#footer').html(data);
-				}).error(function(j, s, t) {
-					$('#footer').html('<p>Failed to load footer.</p>');
-					console.log(s);
-				});
+				$('#footer').load('footer_' + lang + '.html');
 			});
 		</script>
 	</head>
