@@ -534,7 +534,14 @@ body {
 }
 
 .imagelist {
-	height: 140px;
+	width: 720px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.imagelist a {
+	float: left;
+	position: relative;
 }
 
 .image_container {
@@ -572,23 +579,20 @@ body {
 }
 
 .gallery {
-	width: auto;
+	width: 575px;
 	height: 110px;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 15px;
 	margin-bottom: 15px;
-	border-collapse: collapse;
-	border-radius: 10px;
 }
 
-.gallery tr td {
-	width: 115px;
-	border-collapse: collapse;
-	border: none;
-	padding: 0;
-	margin: 0;
+.gallery a {
+	float: left;
 	position: relative;
+	overflow: visible;
+	width: 115px;
+	height: 110px;
 }
 
 .gallery_container {
