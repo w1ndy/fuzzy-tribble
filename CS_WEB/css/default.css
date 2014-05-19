@@ -755,6 +755,12 @@ body {
 .nowpage a {
 	color: #fff !important;
 }
+.pagebutton_disabled {
+	background: #C4C4C4;
+	text-indent: 0;
+	text-align: center;
+	line-height: 30px;
+}
 .article_title {
 	padding-top: 20px;
 	text-indent: 0;
