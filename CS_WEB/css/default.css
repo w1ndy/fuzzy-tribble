@@ -756,7 +756,7 @@ body {
 	color: #fff !important;
 }
 .pagebutton_disabled {
-	background: #C4C4C4;
+	color: #C4C4C4;
 	text-indent: 0;
 	text-align: center;
 	line-height: 30px;
