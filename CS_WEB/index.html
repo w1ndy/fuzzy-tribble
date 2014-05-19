@@ -51,14 +51,11 @@
 			$(document).ready(function() {
 				var lang = $.cookie('language');
 				if(!lang) lang = 'cn';
-				var map, map_deferred = new $.Deferred(), content_deferred = new $.Deferred();
-				$.getJSON('content_' + lang + '/map.json', function(data) {
-					map = data;
-					map_deferred.resolve();
-				});
+				var map = $.getJSON('content_' + lang + '/map.json');
 				var section = parseInt(getParameterByName('s'));
 				if(isNaN(section)) {
 					section = 0;
+					var content_deferred = new $.Deferred();
 					$('#content').load('index_' + lang + '.html', function() {
 						content_deferred.resolve();
 						Modernizr.load({
@@ -79,14 +76,14 @@
 					var column = parseInt(getParameterByName('c'));
 					var article = parseInt(getParameterByName('a'));
 					$('#content').load('content.html', function() {
-						map_deferred.done(function() {
-							renderContent(map, section, column, article, lang)
+						map.done(function(data) {
+							renderContent(data, section, column, article, lang)
 						});
 					});
 				}
 				$('#header').load('header_' + lang + '.html', function() {
-					map_deferred.done(function() {
-						renderMenu(map, section);
+					map.done(function(data) {
+						renderMenu(data, section);
 					});
 				});
 				$('#footer').load('footer_' + lang + '.html');
