@@ -289,6 +289,7 @@ body {
 }
 #slide_container {
 	position: relative;
+	top: 0px;
 	-webkit-transition: 1s;
 	transition: 1s;
 }
