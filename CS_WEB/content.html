@@ -1,5 +1,5 @@
 <div id="sidebar_container">
-	<div id="sidebar">
+	<div id="sidebar" class="floatable">
 		<div id="sidebar_header"></div>
 		<div id="sidebar_navi"><ul></ul></div>
 	</div>
@@ -176,13 +176,4 @@
 			}
 		}
 	}
-
-	$(window).scroll(function(e) {
-		$elem = $('#sidebar');
-		if($(window).scrollTop() > 115) {
-			if($elem.css('position') != 'fixed') $elem.addClass('sidebar_float');
-		} else {
-			if($elem.css('position') == 'fixed') $elem.removeClass('sidebar_float');
-		}
-	});
 </script>

@@ -14,7 +14,7 @@
 	</div>
 </div>
 
-<div id="menubar">
+<div id="menubar" class="floatable">
 	<div id="menubar-content">
 		<div class="menubar-content-menu">
 			<a href=".">Home</a>
@@ -57,13 +57,4 @@
 			}
 		}
 	}
-
-	$(window).scroll(function(e) {
-		$elem = $("#menubar");
-		if($(window).scrollTop() > 115) {
-			if($elem.css("position") != "fixed") $elem.addClass("menubar-float");
-		} else {
-			if($elem.css("position") == "fixed") $elem.removeClass("menubar-float");
-		}
-	});
 </script>

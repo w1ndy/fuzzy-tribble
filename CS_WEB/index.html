@@ -118,6 +118,15 @@
 					});
 				}
 			});
+
+			$(window).scroll(function(e) {
+				$elem = $(".floatable");
+				if($(window).scrollTop() > 115) {
+					if($elem.css("position") != "fixed") $elem.addClass("float");
+				} else {
+					if($elem.css("position") == "fixed") $elem.removeClass("float");
+				}
+			});
 		</script>
 	</head>
 	<body>
