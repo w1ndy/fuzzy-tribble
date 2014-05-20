@@ -402,9 +402,6 @@ body {
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
-.itemlist a:hover {
-	color: #89181b;
-}
 #column1 {
 	width: 22%;
 	float: left;
@@ -424,9 +421,6 @@ body {
 #column5 {
 	width: 360px;
 	float: left;
-}
-#column5 .itemlist a {
-	width: 250px;
 }
 #column6 {
 	width: 600px;
@@ -485,9 +479,13 @@ body {
 	padding-top: 2px;
 	padding-right: 5px;
 	line-height: 20px;
+	table-layout: fixed;
 	position: relative;
 	-webkit-transition: 0.5s;
 	transition: 0.5s;
+}
+.itemlist a:hover {
+	color: #89181b;
 }
 .itemlist.hidden {
 	top: -125px;

@@ -99,11 +99,12 @@
 			for(var i = start; i < end; i++) {
 				if(typeof data[i].url == 'string') {
 					$('#newslist').append('<tr><td class="newsdot"></td><td class="newstitle"><a href="' + data[i].url +
-						'">' + data[i].title + '</a></td><td class="newsdate">' + data[i].date + '</td></tr>');
+						'">' + data[i].title + '</a></td>' + ((data[i].date) ? '<td class="newsdate">' + data[i].date +
+						'</td>' : '') + '</tr>');
 				} else {
 					$('#newslist').append('<tr><td class="newsdot"></td><td class="newstitle"><a href="?s=' + section +
-						'&amp;c=' + column + '&amp;a=' + data[i].url + '">' + data[i].title + '</a></td><td class="newsdate">' +
-						data[i].date + '</td></tr>');
+						'&amp;c=' + column + '&amp;a=' + data[i].url + '">' + data[i].title + '</a></td>' + ((data[i].date) ?
+						'<td class="newsdate">' + data[i].date + '</td>' : '') + '</tr>');
 				}
 			}
 			renderPageButton(page, page_count, function(page) {

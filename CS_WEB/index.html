@@ -43,8 +43,8 @@
 						for(var i = 0; i < (data.length > 5 ? 5 : data.length); i++) {
 							$(node + ' .itemlist').append('<tr><td class="item_dot"></td><td class="item_title"><a href="' +
 								((typeof data[i].url == 'string') ? data[i].url : '?s=' + section + '&amp;c=' +
-								column + '&amp;a=' + data[i].url) + '">' + data[i].title + '</a></td><td class="item_date">' +
-								data[i].date + '</td></tr>');
+								column + '&amp;a=' + data[i].url) + '">' + data[i].title + '</a></td>' + ((data[i].date) ?
+								'<td class="item_date">' + data[i].date + '</td>' : '') + '</tr>');
 						}
 					});
 				});
