@@ -28,10 +28,10 @@
 						}
 						$('#slide').unslider({speed: 500, delay: 4000, keys: true, dots: true, fluid: false});
 						header_animated.done(function() {
-							$('#slide').bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function() {
+							$('#slide_container').bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function() {
 								animated_seq[0].resolve(1);
 							});
-							$('#slide').removeClass('hidden');
+							$('#slide_container').removeClass('hidden');
 						});
 					});
 				});
