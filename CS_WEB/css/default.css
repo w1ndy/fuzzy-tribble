@@ -39,6 +39,7 @@ body {
 	background-color: #89181b;
 	box-shadow: inset rgba(0, 0, 0, 0.35) 0 5px 25px;
 	z-index: 1;
+	display: none;
 }
 #banner {
 	width: 100%;
