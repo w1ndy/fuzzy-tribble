@@ -19,6 +19,10 @@
 				return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 			}
 
+			function backToTop() {
+				$(window.opera ? 'html' : 'html, body').animate({ scrollTop: 0 }, 'slow');
+			}
+
 			function renderSlide(header_deferred, sequence, content_deferred, url, animating) {
 				$.getJSON(url, function(data) {
 					content_deferred.done(function() {
@@ -111,7 +115,7 @@
 							$('#content a, .menubar-content-menu a').click(function() {
 								if($(this).attr('href').charAt(0) != '?') return;
 								history.pushState({}, '', this.href);
-								$(window.opera ? 'html' : 'html, body').animate({ scrollTop: 0 }, 'slow');
+								backToTop();
 								section = parseInt(getParameterByName('s'));
 								map.done(function(data) {
 									renderMenu(data, section);
