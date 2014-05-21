@@ -12,13 +12,14 @@ body {
 	width: 100%;
 	min-width: 1000px;
 	height: 155px;
-	position: absolute;
+	position: relative;
 	top: 0px;
 	z-index: 10;
 	-webkit-transition: 1s;
 	transition: 1s;
 }
 #header.hidden {
+	position: absolute;
 	top: -155px;
 }
 #content {
@@ -27,7 +28,6 @@ body {
 	margin-right: auto;
 	min-height: 550px;
 	position: relative;
-	margin-top: 155px;
 }
 #footer {
 	position: relative;
