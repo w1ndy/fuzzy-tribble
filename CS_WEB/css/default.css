@@ -1,8 +1,12 @@
+html {
+	height: 100%;
+}
 body, div, ul, li, p {
 	margin: 0;
 	padding: 0;
 }
 body {
+	height: 100%;
 	font-family: "Heiti SC", "Lucida Grenda", "Microsoft YaHei", sans-serif;
 	font-size: 14px;
 	-webkit-font-smoothing: subpixel-antialiased;
@@ -16,6 +20,8 @@ body {
 	top: 0px;
 	z-index: 10;
 	-webkit-transition: 1s;
+	-moz-transition: 1s;
+	-o-transition: 1s;
 	transition: 1s;
 }
 #header.hidden {
@@ -26,7 +32,8 @@ body {
 	width: 1000px;
 	margin-left: auto;
 	margin-right: auto;
-	min-height: 550px;
+	min-height: 600px;
+	height: calc(100% - 460px);
 	position: relative;
 }
 #footer {
@@ -39,7 +46,14 @@ body {
 	background-color: #89181b;
 	box-shadow: inset rgba(0, 0, 0, 0.35) 0 5px 25px;
 	z-index: 1;
-	display: none;
+	-webkit-transition: 1s;
+	-moz-transition: 1s;
+	-o-transition: 1s;
+	transition: 1s;
+}
+#footer.hidden {
+	position: fixed;
+	bottom: -310px;
 }
 #banner {
 	width: 100%;
@@ -292,6 +306,8 @@ body {
 	position: relative;
 	top: 0px;
 	-webkit-transition: 1s;
+	-moz-transition: 1s;
+	-o-transition: 1s;
 	transition: 1s;
 }
 #slide_container.hidden {
@@ -347,6 +363,7 @@ body {
 	opacity: .4;
 	-webkit-transition: background .5s, opacity .5s;
 	-moz-transition: background .5s, opacity .5s;
+	-o-transition: background .5s, opacity .5s;
 	transition: background .5s, opacity .5s;
 }
 #slide .dots li.active {
@@ -437,6 +454,8 @@ body {
 	overflow: hidden;
 	position: relative;
 	-webkit-transition: 0.2s linear;
+	-moz-transition: 0.2s linear;
+	-o-transition: 0.2s linear;
 	transition: 0.2s linear;
 }
 .col_header.hidden {
@@ -448,6 +467,8 @@ body {
 	text-shadow: 0 0 3px rgba(0, 0, 0, .3);
 	position: absolute;
 	-webkit-transition: 0.5s;
+	-moz-transition: 0.5s;
+	-o-transition: 0.5s;
 	transition: 0.5s;
 }
 .header_more {
@@ -458,6 +479,8 @@ body {
 	position: absolute;
 	right: 0px;
 	-webkit-transition: 0.5s;
+	-moz-transition: 0.5s;
+	-o-transition: 0.5s;
 	transition: 0.5s;
 }
 .header_more a {
@@ -482,6 +505,8 @@ body {
 	table-layout: fixed;
 	position: relative;
 	-webkit-transition: 0.5s;
+	-moz-transition: 0.5s;
+	-o-transition: 0.5s;
 	transition: 0.5s;
 }
 .itemlist a:hover {
@@ -520,6 +545,8 @@ body {
 	width: 720px;
 	position: absolute;
 	-webkit-transition: 0.5s;
+	-moz-transition: 0.5s;
+	-o-transition: 0.5s;
 	transition: 0.5s;
 }
 .imagelist a {
@@ -558,6 +585,8 @@ body {
 	color: #fff;
 	padding-left: 10px;
 	-webkit-transition: 0.1s;
+	-moz-transition: 0.1s;
+	-o-transition: 0.1s;
 	transition: 0.1s;
 }
 .gallerylist_container {
@@ -573,6 +602,8 @@ body {
 	left: 12px;
 	top: 15px;
 	-webkit-transition: 0.5s;
+	-moz-transition: 0.5s;
+	-o-transition: 0.5s;
 	transition: 0.5s;
 }
 .gallery a {
@@ -593,6 +624,8 @@ body {
 	height: 110px;
 	z-index: 0;
 	-webkit-transition: 0.1s;
+	-moz-transition: 0.1s;
+	-o-transition: 0.1s;
 	transition: 0.1s;
 }
 .gallery_container span {
@@ -616,6 +649,8 @@ body {
 	width: 100%;
 	height: 100%;
 	-webkit-transition: 0.1s;
+	-moz-transition: 0.1s;
+	-o-transition: 0.1s;
 	transition: 0.1s;
 }
 .gallery_image img {
@@ -634,12 +669,22 @@ body {
 	background-color: #000;
 	z-index: 5;
 	-webkit-transition: 0.1s;
+	-moz-transition: 0.1s;
+	-o-transition: 0.1s;
 	transition: 0.1s;
 }
 #sidebar_container {
 	float: right;
 	width: 180px;
 	padding-top: 10px;
+	overflow: hidden;
+	-webkit-transition: 0.3s;
+	-moz-transition: 0.3s;
+	-o-transition: 0.3s;
+	transition: 0.3s;
+}
+#sidebar_container.hidden {
+	width: 0px;
 }
 #sidebar {
 	width: 180px;
@@ -659,7 +704,7 @@ body {
 	text-shadow: 0 0 4px rgba(0, 0, 0, .5)
 }
 #sidebar_navi {
-	margin-top: 10px;
+	padding-top: 10px;
 	width: 100%;
 	height: auto;
 }
@@ -683,13 +728,25 @@ body {
 	float: left;
 	padding-top: 10px;
 }
-#location {
+#location_container {
 	height: 35px;
-	width: 100%;
-	line-height: 45px;
+	width: 800px;
 	background: #F7F7F7;
 	border-radius: 5px;
 	box-shadow: 0px 0px 3px rgba(0, 0, 0, .5) inset;
+	overflow: hidden;
+	-webkit-transition: 0.5s;
+	-moz-transition: 0.5s;
+	-o-transition: 0.5s;
+	transition: 0.5s;
+}
+#location_container.hidden {
+	width: 0px;
+}
+#location {
+	width: 800px;
+	height: 35px;
+	line-height: 45px;
 }
 #loc_prompt {
 	height: 100%;
@@ -749,13 +806,23 @@ body {
 	margin-right: 20px;
 	margin-bottom: 60px;
 	width: auto;
+	opacity: 1;
+	overflow: hidden;
 	text-indent: 2em;
+	-webkit-transition: 0.5s;
+	-moz-transition: 0.5s;
+	-o-transition: 0.5s;
+	transition: 0.5s;
 }
 #placeholder p {
 	width: auto;
 	margin-bottom: 5px;
 	line-height: 1.5em;
 	word-break: break-all;
+}
+#placeholder.hidden {
+	margin-top: 50px;
+	opacity: 0;
 }
 #newslist {
 	width: 100%;

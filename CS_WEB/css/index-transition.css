@@ -1,6 +1,8 @@
 .image_container:hover .image_popup {
 	bottom: 0px;
 	-webkit-transition: 0.3s ease;
+	-moz-transition: 0.3s ease;
+	-o-transition: 0.3s ease;
 	transition: 0.3s ease;
 }
 .gallery_container:hover {

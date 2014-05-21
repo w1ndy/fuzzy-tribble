@@ -14,17 +14,7 @@
 		</div>
 	</div>
 </div>
-
-<div id="menubar" class="floatable">
-	<div id="menubar-content">
-		<div class="menubar-content-menu">
-			<a href=".">首页</a>
-		</div>
-		<div id="menubar-content-helper">
-			<a href="#">English</a>
-		</div>
-	</div>
-</div>
+<div id="menubar" class="floatable"><div id="menubar-content"></div></div>
 <script>
 	$(document).ready(function() {
 		var D = new Date();
@@ -44,10 +34,8 @@
 	});
 
 	function renderMenu(data, highlight) {
-		if(highlight == 0) {
-			document.title = data[0].title;
-			$('.menubar-content-menu').addClass('menubar-content-highlight');
-		}
+		$('#menubar-content').html('<div class="menubar-content-menu"><a href=".">首页</a></div><div id="menubar-content-helper"><a href="#">English</a></div>');
+		if(highlight == 0) $('.menubar-content-menu').addClass('menubar-content-highlight');
 		for(var i = 1; i < data.length; i++) {
 			if(i == highlight) {
 				$("#menubar-content-helper").before('<div class="menubar-content-menu menubar-content-highlight"><a href="?s=' +
