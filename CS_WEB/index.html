@@ -8,8 +8,6 @@
 		<link rel="stylesheet" type="text/css" href="css/default.css">
 		<script src="js/jquery-1.11.1.min.js"></script>
 		<script src="js/jquery.cookie.js"></script>
-		<script src="js/jquery.event.move.js"></script>
-		<script src="js/jquery.event.swipe.js"></script>
 		<script src="js/modernizr.custom.46886.js"></script>
 		<script>
 			var section, column, page, article;
@@ -110,9 +108,10 @@
 					renderColumn(content_deferred, '#column2', lang, 1, 2),
 					renderColumn(content_deferred, '#column5', lang, 6, 1)).then(function() {
 						if(norefresh) {
-							$('#content a').click(function() {
+							$('#content a, .menubar-content-menu a').click(function() {
 								if($(this).attr('href').charAt(0) != '?') return;
 								history.pushState({}, '', this.href);
+								$(window.opera ? 'html' : 'html, body').animate({ scrollTop: 0 }, 'slow');
 								section = parseInt(getParameterByName('s'));
 								map.done(function(data) {
 									renderMenu(data, section);

@@ -26,10 +26,6 @@
 				$('#banner-content-right-navi').append('<p>Jinan ' + obj.weather[0].main + ' ' +
 				Math.round(obj.main.temp) + '℃</p>');
 			});
-		$('#menubar-content-helper').click(function() {
-			$.removeCookie('language');
-			location.reload();
-		});
 	});
 
 	function renderMenu(data, highlight) {
@@ -44,5 +40,9 @@
 					i + '">' + data[i][0].page_name + '</a></div>');
 			}
 		}
+		$('#menubar-content-helper').click(function() {
+			$.removeCookie('language');
+			location.reload();
+		});
 	}
 </script>

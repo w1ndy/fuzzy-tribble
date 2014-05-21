@@ -27,10 +27,6 @@
 				$('#banner-content-right-navi').append('<p>济南 ' + obj.weather[0].description + ' ' +
 				Math.round(obj.main.temp) + '℃ by OpenWeatherMap</p>');
 			});
-		$('#menubar-content-helper').click(function() {
-			$.cookie('language', 'en', { expires: 365 });
-			location.reload();
-		});
 	});
 
 	function renderMenu(data, highlight) {
@@ -45,5 +41,9 @@
 					i + '">' + data[i][0].page_name + '</a></div>');
 			}
 		}
+		$('#menubar-content-helper a').click(function() {
+			$.cookie('language', 'en', { expires: 365 });
+			location.reload();
+		});
 	}
 </script>
