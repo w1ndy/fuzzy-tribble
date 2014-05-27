@@ -109,20 +109,6 @@
 		}
 	}
 
-	function loadPageButton(page, page_count, data, tag, lang, section, column) {
-		renderPageButton(page, page_count);
-		$('.pagebutton').click(function() {
-			var to = $(this).text();
-			if(to == '<') to = page - 1;
-			if(to == '>') to = +page + 1;
-			console.log(to);
-			if((to < 1) || (to > page_count)) return;
-			page = to;
-			renderList(data, tag, lang, section, column, page);
-			loadPageButton(page, page_count, data, tag, lang, section, column);
-		});
-	}
-
 	function loadList(tag, lang, section, column, page, map, header_deferred, sequence, animation, norefresh) {
 		$.getJSON('content_' + lang + '/' + section + '/' + column + '/0.json', function(data) {
 			var page_count = countPage(data.length, 15);
@@ -136,6 +122,11 @@
 				console.log(to);
 				if((to < 1) || (to > page_count)) return;
 				page = to;
+				if(norefresh) {
+					var loc=window.location.href;
+					history.pushState({}, '', loc.substring(0, loc.lastIndexOf('?') + 1) + 's=' + section +
+						'&c=' + column + '&p=' + page);
+				}
 				loadList(tag, lang, section, column, page, map, header_deferred, sequence, animation, norefresh);
 			});
 			if(norefresh) {
