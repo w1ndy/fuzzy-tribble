@@ -746,7 +746,6 @@ body {
 #location {
 	width: 800px;
 	height: 35px;
-	line-height: 45px;
 }
 #loc_prompt {
 	height: 100%;
@@ -769,13 +768,10 @@ body {
 	line-height: 35px;
 	padding-left: 20px;
 	padding-right: 20px;
-	margin-right: -10px;
 	font-size: small;
 }
 #loc_entry_3 {
 	height: 100%;
-	width: auto;
-	text-align: left;
 	line-height: 35px;
 	padding-left: 25px;
 	padding-right: 20px;
@@ -788,6 +784,7 @@ body {
 	height: 100%;
 	width: 27px;
 	float: left;
+	margin-left: -10px;
 	margin-right: -10px;
 	background: url(../images/next.png);
 	display: none;
@@ -867,22 +864,15 @@ body {
 	border-radius: 5px;
 	float: left;
 	margin-right: 5px;
-}
-.pagebutton a {
-	width: 100%;
-	height: 100%;
 	text-indent: 0;
 	text-align: center;
-	text-decoration: none;
 	color: #000;
 	line-height: 30px;
-	display: block;
+	cursor: pointer;
 }
 .nowpage {
 	background: #671111;
-}
-.nowpage a {
-	color: #fff !important;
+	color: #fff;
 }
 .pagebutton_disabled {
 	color: #C4C4C4;

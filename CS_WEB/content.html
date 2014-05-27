@@ -1,11 +1,11 @@
-<div id="sidebar_container" class="hidden">
+<div id="sidebar_container" class="hideable hidden">
 	<div id="sidebar" class="floatable">
 		<div id="sidebar_header"></div>
 		<div id="sidebar_navi"></div>
 	</div>
 </div>
 <div id="article_container">
-	<div id="location_container" class="hidden">
+	<div id="location_container" class="hideable hidden">
 		<div id="location">
 			<div id="loc_prompt"></div>
 			<div id="loc_entry_1"></div>
@@ -15,7 +15,7 @@
 			<div id="loc_entry_3"></div>
 		</div>
 	</div>
-	<div id="placeholder" class="hidden"></div>
+	<div id="placeholder" class="hideable hidden"></div>
 </div>
 <script>
 	var page_404 = '<p style="text-align:center;text-indent:0"><img style="display:inline" src="images/404.jpg"></p>';
@@ -29,24 +29,24 @@
 		return s;
 	};
 
-	function renderPageButton(current_page, page_count, link_script) {
+	function renderPageButton(current_page, page_count) {
 		if(page_count < 2) return;
 		if(current_page == 1) {
 			$('#pager').append('<div class="pagebutton pagebutton_disabled">&lt;</div>');
 		} else {
-			$('#pager').append('<div class="pagebutton"><a href="' + link_script(current_page - 1) + '">&lt;</a></div>');
+			$('#pager').append('<div class="pagebutton">&lt;</div>');
 		}
 		for(var i = 1; i <= page_count; i++) {
 			if(i == current_page) {
-				$('#pager').append('<div class="pagebutton nowpage"><a href="' + link_script(i) + '">' + i + '</a></div>');
+				$('#pager').append('<div class="pagebutton nowpage">' + i + '</div>');
 			} else {
-				$('#pager').append('<div class="pagebutton"><a href="' + link_script(i) + '">' + i + '</a></div>');
+				$('#pager').append('<div class="pagebutton">' + i + '</div>');
 			}
 		}
 		if(current_page == page_count) {
 			$('#pager').append('<div class="pagebutton pagebutton_disabled">&gt;</div>');
 		} else {
-			$('#pager').append('<div class="pagebutton"><a href="' + link_script(current_page + 1) + '">&gt;</a></div>');
+			$('#pager').append('<div class="pagebutton">&gt;</div>');
 		}
 	}
 
@@ -57,7 +57,7 @@
 	function renderGrid(tag, lang, section, column, page) {
 		$.getJSON('content_' + lang + '/' + section + '/' + column + '/0.json', function(data) {
 			var page_count = countPage(data.length, 3 * 4);
-			if(isNaN(page) || page < 1 || page > page_count) page = 1;
+			if(page > page_count) page = 1;
 			$(tag).html(
 				'<div class="gridcont"></div>' +
 				'<div id="pager_container"><div id="pager"></div></div>');
@@ -86,40 +86,70 @@
 						data.grids[i].title));
 				}
 			}
-				renderPageButton(page, page_count, function(page) {
-					return "javascript:renderGrid('" + tag + "','" + lang + "'," + section + "," + column + "," + page + ")";
-				});
-		});
-	}
-
-	function renderList(tag, lang, section, column, page) {
-		$.getJSON('content_' + lang + '/' + section + '/' + column + '/0.json', function(data) {
-			var page_count = countPage(data.length, 15);
-			if(isNaN(page) || page < 1 || page > page_count) page = 1;
-			$(tag).html('<table id="newslist"></table><div id="pager_container"><div id="pager"></div></div>');
-			var start = (page - 1) * 15, end = page * 15;
-			if(end > data.length) end = data.length;
-			for(var i = start; i < end; i++) {
-				if(typeof data[i].url == 'string') {
-					$('#newslist').append('<tr><td class="newsdot"></td><td class="newstitle"><a href="' + data[i].url +
-						'">' + data[i].title + '</a></td>' + ((data[i].date) ? '<td class="newsdate">' + data[i].date +
-						'</td>' : '') + '</tr>');
-				} else {
-					$('#newslist').append('<tr><td class="newsdot"></td><td class="newstitle"><a href="?s=' + section +
-						'&amp;c=' + column + '&amp;a=' + data[i].url + '">' + data[i].title + '</a></td>' + ((data[i].date) ?
-						'<td class="newsdate">' + data[i].date + '</td>' : '') + '</tr>');
-				}
-			}
 			renderPageButton(page, page_count, function(page) {
-				return "javascript:renderList('" + tag + "','" + lang + "'," + section + "," + column + "," + page + ")";
+				return "javascript:renderGrid('" + tag + "','" + lang + "'," + section + "," + column + "," + page + ")";
 			});
 		});
 	}
 
-	function renderContent(data, sequence, section, column, page, article, lang, animating, animation, norefresh) {
+	function renderList(data, tag, lang, section, column, page) {
+		$(tag).html('<table id="newslist"></table><div id="pager_container"><div id="pager"></div></div>');
+		var start = (page - 1) * 15, end = page * 15;
+		if(end > data.length) end = data.length;
+		for(var i = start; i < end; i++) {
+			if(typeof data[i].url == 'string') {
+				$('#newslist').append('<tr><td class="newsdot"></td><td class="newstitle"><a href="' + data[i].url +
+					'">' + data[i].title + '</a></td>' + ((data[i].date) ? '<td class="newsdate">' + data[i].date +
+					'</td>' : '') + '</tr>');
+			} else {
+				$('#newslist').append('<tr><td class="newsdot"></td><td class="newstitle"><a href="?s=' + section +
+					'&amp;c=' + column + '&amp;a=' + data[i].url + '">' + data[i].title + '</a></td>' + ((data[i].date) ?
+					'<td class="newsdate">' + data[i].date + '</td>' : '') + '</tr>');
+			}
+		}
+	}
+
+	function loadPageButton(page, page_count, data, tag, lang, section, column) {
+		renderPageButton(page, page_count);
+		$('.pagebutton').click(function() {
+			var to = $(this).text();
+			if(to == '<') to = page - 1;
+			if(to == '>') to = +page + 1;
+			console.log(to);
+			if((to < 1) || (to > page_count)) return;
+			page = to;
+			renderList(data, tag, lang, section, column, page);
+			loadPageButton(page, page_count, data, tag, lang, section, column);
+		});
+	}
+
+	function loadList(tag, lang, section, column, page, map, header_deferred, sequence, animation, norefresh) {
+		$.getJSON('content_' + lang + '/' + section + '/' + column + '/0.json', function(data) {
+			var page_count = countPage(data.length, 15);
+			if(page > page_count) page = 1;
+			renderList(data, tag, lang, section, column, page);
+			renderPageButton(page, page_count);
+			$('.pagebutton').click(function() {
+				var to = $(this).text();
+				if(to == '<') to = page - 1;
+				if(to == '>') to = +page + 1;
+				console.log(to);
+				if((to < 1) || (to > page_count)) return;
+				page = to;
+				loadList(tag, lang, section, column, page, map, header_deferred, sequence, animation, norefresh);
+			});
+			if(norefresh) {
+				$('#newslist a').click(function() {
+					return linkRedirect($(this).attr('href'), this.href, map, lang, header_deferred, sequence, animation, norefresh);
+				});
+			}
+		});
+	}
+
+	function renderContent(map, data, header_deferred, sequence, section, column, page, article, lang, animating, animation, norefresh) {
 		var site_title = data[0].title;
 		$('#loc_prompt').text(data[0].loc_prompt);
-		if (section < 1 || section >= data.length) {
+		if (section >= data.length) {
 			document.title = '404 - ' + site_title;
 			$('#loc_entry_1').text('404');
 			$('#placeholder').html(page_404);
@@ -127,7 +157,7 @@
 			$('#loc_sep_1').show();
 			data = data[section];
 			$('#loc_entry_1').text(data[0].page_name);
-			if(isNaN(column) || column < 1 || column >= data.length) column = 1;
+			if(column >= data.length) column = 1;
 			document.title = data[column].name + ' - ' + site_title;
 			$('#sidebar_header').text(data[0].page_name);
 			$('#sidebar_navi').html('<ul></ul>');
@@ -138,7 +168,12 @@
 					$('#sidebar_navi ul').append('<li><a href="?s=' + section + '&amp;c=' + s + '">' + data[s].name + '</a></li>');
 				}
 			}
-			if(isNaN(article)) {
+			if(norefresh) {
+				$('#sidebar_navi a').click(function() {
+					return linkRedirect($(this).attr('href'), this.href, map, lang, header_deferred, sequence, animation, norefresh);
+				});
+			}
+			if(article == 0) {
 				$('#loc_entry_2').text(data[column].name);
 				switch (data[column].type) {
 				case 0:
@@ -150,16 +185,21 @@
 					});
 					break;
 				case 1:
-					renderList('#placeholder', lang, section, column, page);
+					loadList('#placeholder', lang, section, column, page, map, header_deferred, sequence, animation, norefresh);
 					break;
 				case 2:
-					renderGrid('#placeholder', lang, section, column, page);
+					renderGrid('#placeholder', lang, section, column, page, map, header_deferred, sequence, animation, norefresh);
 					break;
 				default:
 					$('#placeholder').html(page_404);
 				}
 			} else {
 				$('#loc_entry_2').html('<a href="?s=' + section + '&amp;c=' + column + '">' + data[column].name + '</a>');
+				if(norefresh) {
+					$('#loc_entry_2 a').click(function() {
+						return linkRedirect($(this).attr('href'), this.href, map, lang, header_deferred, sequence, animation, norefresh);
+					});
+				}
 				$('#loc_sep_2').show();
 				$.getJSON('content_' + lang + '/' + section + '/' + column + '/' + article + '.json', function(data) {
 					$('#placeholder').append('<div class="article_title">' + data.title + '</div>');
