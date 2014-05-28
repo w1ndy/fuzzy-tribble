@@ -88,6 +88,7 @@ function linkRedirect(href, link) {
   if(oldSection != section) {
     $('#location_container').css('width', $('#loc_sep_1').position().left + 'px');
 
+    $('#location_container').removeAttr('style');
   }*/
 }
 
@@ -185,8 +186,8 @@ function renderList(data) {
 function loadList(filter) {
   $.getJSON('content_' + lang + '/' + section + '/' + column + '/0.json', function(data) {
     if(filter) {
-      data = data.filter(function(value) {
-        return value.title.indexOf(filter) >= 0;
+      data = $(data).filter(function() {
+        return this.title.toLowerCase().indexOf(filter) >= 0;
       });
     }
     var page_count = countPage(data.length, 15);
@@ -253,7 +254,7 @@ function renderContent(data, animating) {
     case 1:
       $('#loc_entry_3').html('<input type="text" id="list_filter">');
       $('#list_filter').on('input', function() {
-        loadList($(this).val());
+        loadList($(this).val().toLowerCase());
       });
       loadList('');
       break;
