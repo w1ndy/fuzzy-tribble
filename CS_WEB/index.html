@@ -9,252 +9,32 @@
 		<script src="js/jquery-1.11.1.min.js"></script>
 		<script src="js/jquery.cookie.js"></script>
 		<script src="js/modernizr.custom.46886.js"></script>
-		<script>
-			var section, column, page, article;
-
-			function getParameterByName(name) {
-				name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-				var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-					results = regex.exec(location.search);
-				return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-			}
-
-			function getParameters() {
-				section = parseInt(getParameterByName('s'));
-				if(!$.isNumeric(section) || section < 0) section = 0;
-				column = parseInt(getParameterByName('c'));
-				if(!$.isNumeric(column) || column < 1 ) column = 1;
-				page = parseInt(getParameterByName('p'));
-				if(!$.isNumeric(page) || page < 1) page = 1;
-				article = parseInt(getParameterByName('a'));
-				if(!$.isNumeric(article)) article = 0;
-			}
-
-			function backToTop() {
-				$(window.opera ? 'html' : 'html, body').animate({ scrollTop: 0 }, 'slow');
-			}
-
-			function linkRedirect(href, link, map, lang, header_deferred, sequence, animation, norefresh) {
-				if(href.charAt(0) == '.') {
-					if(section == 0) return false;
-					history.pushState({}, '', link);
-					section = 0;
-					backToTop();
-					loadMenu(section, map, lang, header_deferred, sequence, animation, norefresh);
-					if(animation) {
-						$('#placeholder').bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function() {
-							$('#placeholder').unbind();
-							loadIndex(map, lang, header_deferred, sequence, animation, animation, norefresh);
-						});
-						$('.hideable').addClass('hidden');
-					} else {
-						loadIndex(map, lang, header_deferred, sequence, animation, animation, norefresh);
-					}
-					return false;
-				}
-				if(href.charAt(0) != '?') return true;
-				if(section == 0) {
-					history.pushState({}, '', link);
-					backToTop();
-					getParameters();
-					loadMenu(section, map, lang, header_deferred, sequence, animation, norefresh);
-					if(animation) {
-						$('#slide_container').bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function() {
-							$('#slide_container').unbind();
-							loadContent(map, section, lang, header_deferred, sequence, animation, animation, norefresh);
-						});
-						$('.hideable').addClass('hidden');
-					} else {
-						loadContent(map, section, lang, header_deferred, sequence, animation, animation, norefresh);
-					}
-					return false;
-				}
-				history.pushState({}, '', link);
-				backToTop();
-				getParameters();
-				loadMenu(section, map, lang, header_deferred, sequence, animation, norefresh);
-				if(animation) {
-					$('#placeholder').bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function() {
-						$('#placeholder').unbind();
-						loadContent(map, section, lang, header_deferred, sequence, animation, animation, norefresh);
-					});
-					$('.hideable').addClass('hidden');
-				} else {
-					loadContent(map, section, lang, header_deferred, sequence, animation, animation, norefresh);
-				}
-				return false;
-				/*var oldSection = section, oldColumn = column;
-				getParameters();
-				if(oldSection != section) {
-					$('#location_container').css('width', $('#loc_sep_1').position().left + 'px');
-
-				}*/
-			}
-
-			function renderSlide(header_deferred, sequence, content_deferred, url, animating) {
-				$.getJSON(url, function(data) {
-					content_deferred.done(function() {
-						for(var i = 0; i < data.length; i++) {
-							$('#slide ul').append(
-								'<li>' +
-									'<img src="' + data[i].image + '">' +
-									'<div class="mask"></div>' +
-									'<div class="description">' +
-										'<a href="?' + data[i].url + '">' + data[i].title + '</a>' +
-										'<p>' + data[i].desc + '</p>' +
-									'</div>' +
-								'</li>');
-						}
-						$('#slide').unslider({speed: 500, delay: 4000, keys: true, dots: true, fluid: false});
-						if(animating) {
-							header_deferred.done(function() {
-								$('#slide_container').bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function() {
-									$('#slide_container').unbind();
-									sequence[1].resolve(1);
-								});
-								$('#slide_container').removeClass('hidden');
-							});
-						}
-					});
-				});
-			}
-
-			function renderColumn(content_deferred, node, lang, section, column) {
-				return $.getJSON('content_' + lang + '/' + section + '/' + column + '/0.json', function(data) {
-					content_deferred.done(function() {
-						for(var i = 0; i < (data.length > 5 ? 5 : data.length); i++) {
-							$(node + ' .itemlist').append('<tr><td class="item_dot"></td><td class="item_title"><a href="' +
-								((typeof data[i].url == 'string') ? data[i].url : '?s=' + section + '&amp;c=' +
-								column + '&amp;a=' + data[i].url) + '">' + data[i].title + '</a></td>' + ((data[i].date) ?
-								'<td class="item_date">' + data[i].date + '</td>' : '') + '</tr>');
-						}
-					});
-				});
-			}
-
-			function loadMenu(section, map, lang, header_deferred, sequence, animation, norefresh) {
-				map.done(function(data) {
-					renderMenu(data, section);
-					if(norefresh) {
-						$('.menubar-content-menu a').click(function() {
-							return linkRedirect($(this).attr('href'), this.href, map, lang, header_deferred, sequence, animation, norefresh);
-						});
-					}
-				});
-			}
-
-			function loadContent(map, section, lang, header_deferred, sequence, animating, animation, norefresh) {
-				$('#content').load('content.html', function() {
-					map.done(function(data) {
-						renderContent(map, data, header_deferred, sequence, section, column, page, article, lang, animating, animation, norefresh)
-					});
-				});
-			}
-
-			function loadIndex(map, lang, header_deferred, sequence, animating, animation, norefresh) {
-				map.done(function(data) {
-					document.title = data[0].title;
-				});
-				for(var i = 1; i < 8; i++) sequence[i] = new $.Deferred();
-				var content_deferred = new $.Deferred();
-				$('#content').load('index_' + lang + '.html', function() {
-					content_deferred.resolve();
-					Modernizr.load({
-						test: Modernizr.csstransitions,
-						yep : 'css/index-transition.css',
-						nope: 'js/index-transition.js'
-					});
-					if (Modernizr.touch) {
-						$('.image_popup').css('bottom', '0');
-						$('.gallery_container span').css('display', 'inline');
-					}
-					if(animating) {
-						for(var i = 1; i <= 6; i++) {
-							sequence[i].done(function(seq) {
-								$('#column' + seq + ' .col_header').bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function() {
-									$('#column' + seq + ' .col_header').unbind();
-									sequence[seq + 1].resolve(seq + 1);
-									$('#column' + seq + ' .hidden').removeClass('hidden');
-								});
-								$('#column' + seq + ' .col_header').removeClass('hidden');
-							});
-						}
-					} else {
-						$('.hidden').removeClass('hidden');
-					}
-				});
-				renderSlide(header_deferred, sequence, content_deferred, 'content_' + lang + '/slides.json', animating);
-				$.when(renderColumn(content_deferred, '#column1', lang, 1, 3),
-					renderColumn(content_deferred, '#column2', lang, 1, 2),
-					renderColumn(content_deferred, '#column5', lang, 6, 1)).then(function() {
-						if(norefresh) {
-							$('#content a').click(function() {
-								return linkRedirect($(this).attr('href'), this.href, map, lang, header_deferred, sequence, animation, norefresh);
-							});
-						}
-					});
-			}
-
-			function loadPage(map, lang, header_deferred, sequence, animating, animation, norefresh) {
-				getParameters();
-				if(section == 0) {
-					loadIndex(map, lang, header_deferred, sequence, animating, animation, norefresh);
-				} else {
-					loadContent(map, section, lang, header_deferred, sequence, animating, animation, norefresh);
-				}
-			}
-
-			$(document).ready(function() {
-				var lang = $.cookie('language');
-				if(!lang) lang = 'cn';
-				var animation = Modernizr.csstransitions && !$.cookie('notransition');
-				var norefresh = Modernizr.history;
-				var sequence = new Array(8);
-				sequence[0] = new $.Deferred();
-				var header_deferred = new $.Deferred();
-				var map = $.getJSON('content_' + lang + '/map.json');
-				if(norefresh) {
-					header_deferred.done(function() {
-						$(window).bind('popstate', function() {
-							loadPage(map, lang, header_deferred, sequence, false, animation, norefresh);
-							loadMenu(section, map, lang, header_deferred, sequence, animation, norefresh);
-						});
-					});
-				}
-				loadPage(map, lang, header_deferred, sequence, animation, animation, norefresh);
-				$('#header').load('header_' + lang + '.html', function() {
-					header_deferred.resolve();
-					if(animation) {
-						$('#header').bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function() {
-							$('#header').unbind();
-							sequence[0].resolve();
-						});
-						$('#header').removeClass('hidden');
-					}
-					loadMenu(section, map, lang, header_deferred, sequence, animation, norefresh);
-				});
-				$('#footer').load('footer_' + lang + '.html', function() {
-					if(animation) {
-						header_deferred.done(function() {
-							$('#footer').removeClass('hidden');
-						});
-					}
-				});
-			});
-
-			$(window).scroll(function(e) {
-				$elem = $(".floatable");
-				if($(window).scrollTop() > 115) {
-					if($elem.css("position") != "fixed") $elem.addClass("float");
-				} else {
-					if($elem.css("position") == "fixed") $elem.removeClass("float");
-				}
-			});
-		</script>
+		<script src="js/index.js"></script>
 	</head>
 	<body>
 		<div id="header" class="hidden"></div>
-		<div id="content"></div>
+		<div id="index"></div>
+		<div id="content">
+			<div id="sidebar_container" class="hideable hidden">
+				<div id="sidebar" class="floatable">
+					<div id="sidebar_header"></div>
+					<div id="sidebar_navi"></div>
+				</div>
+			</div>
+			<div id="article_container">
+				<div id="location_container" class="hideable hidden">
+					<div id="location">
+						<div id="loc_prompt"></div>
+						<div id="loc_entry_1"></div>
+						<div id="loc_sep_1"></div>
+						<div id="loc_entry_2"></div>
+						<div id="loc_sep_2"></div>
+						<div id="loc_entry_3"></div>
+					</div>
+				</div>
+				<div id="placeholder" class="hideable hidden"></div>
+			</div>
+		</div>
 		<div id="footer" class="hidden"></div>
 	</body>
 </html>

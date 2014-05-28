@@ -28,6 +28,13 @@ body {
 	position: absolute;
 	top: -155px;
 }
+#index {
+	width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+	display: none;
+}
 #content {
 	width: 1000px;
 	margin-left: auto;
@@ -35,6 +42,7 @@ body {
 	min-height: 600px;
 	height: calc(100% - 460px);
 	position: relative;
+	display: none;
 }
 #footer {
 	position: relative;
@@ -787,7 +795,6 @@ body {
 	margin-left: -10px;
 	margin-right: -10px;
 	background: url(../images/next.png);
-	display: none;
 }
 #loc_entry_1 a, #loc_entry_2 a {
 	font-size: small;
