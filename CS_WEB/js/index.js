@@ -40,7 +40,6 @@ function linkRedirect(href, link) {
     if(animation) {
       $('#placeholder').bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function() {
         $('#placeholder').unbind();
-        $('#content').hide();
         loadIndex(animation);
       });
       $('#content .hideable').addClass('hidden');
@@ -59,7 +58,6 @@ function linkRedirect(href, link) {
     if(animation) {
       $('#slide_container').bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function() {
         $('#slide_container').unbind();
-        $('#index').hide();
         loadContent(animation);
       });
       $('#index .hideable').addClass('hidden');
@@ -363,6 +361,7 @@ function loadMenu() {
 }
 
 function loadContent(animating) {
+  $('#index').hide();
   $('#content').show();
   map.done(function(data) {
     renderContent(data, animating)
@@ -370,6 +369,7 @@ function loadContent(animating) {
 }
 
 function loadIndex(animating) {
+  $('#content').hide();
   $('#index').show();
   map.done(function(data) {
     document.title = data[0].title;
