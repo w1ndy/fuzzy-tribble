@@ -3,7 +3,7 @@ var lang, section, column, page, article;
 // Settings
 var animation, norefresh;
 // Sequence Control
-var header_deferred = new $.Deferred(), index_deferred = new $.Deferred(), sequence = new Array(8);
+var header_deferred = new $.Deferred(), index_deferred, sequence = new Array(8);
 // Shared Data
 var map, list;
 
@@ -366,6 +366,12 @@ function loadIndex(animating) {
   map.done(function(data) {
     document.title = data[0].title;
   });
+  if(!$('#index').html()) {
+    index_deferred = new $.Deferred();
+    $('#index').load('index_' + lang + '.html', function() {
+      index_deferred.resolve();
+    });
+  }
   for(var i = 1; i < 8; i++) sequence[i] = new $.Deferred();
   index_deferred.done(function() {
     Modernizr.load({
@@ -402,11 +408,6 @@ function loadIndex(animating) {
 function loadPage(animating) {
   getParameters();
   if(section == 0) {
-    if(index_deferred.state() != 'resolved') {
-      $('#index').load('index_' + lang + '.html', function() {
-        index_deferred.resolve();
-      });
-    }
     loadIndex(animating);
   } else {
     loadContent(animating);
