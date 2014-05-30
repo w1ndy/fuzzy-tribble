@@ -5,7 +5,7 @@ var animation, norefresh;
 // Sequence Control
 var header_deferred = new $.Deferred(), index_deferred = new $.Deferred(), sequence = new Array(8);
 // Shared Data
-var map;
+var map, list;
 
 function getParameterByName(name) {
   name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -182,7 +182,7 @@ function renderList(data) {
 }
 
 function loadList(filter) {
-  $.getJSON('content_' + lang + '/' + section + '/' + column + '/0.json', function(data) {
+  list.done(function(data) {
     if(filter) {
       data = $(data).filter(function() {
         return this.title.toLowerCase().indexOf(filter) >= 0;
@@ -242,6 +242,7 @@ function renderContent(data, animating) {
       });
       break;
     case 1:
+      list = $.getJSON('content_' + lang + '/' + section + '/' + column + '/0.json');
       $('#loc_entry_3').html('<input type="text" id="list_filter">');
       $('#list_filter').on('input', function() {
         loadList($(this).val().toLowerCase());
