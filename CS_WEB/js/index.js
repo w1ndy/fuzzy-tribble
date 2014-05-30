@@ -438,25 +438,21 @@ $(document).ready(function() {
   loadPage(animation);
   $('#header').load('header_' + lang + '.html', function() {
     header_deferred.resolve();
-    if(animation) {
-      $('#header').removeClass('hidden');
-      if(section != 0) {
-        $('#header').delay(1000).queue(function() {
-          start_deferred.resolve();
-          $(this).dequeue();
-        });
-      } else {
+    $('#header').removeClass('hidden');
+    if(animation && section != 0) {
+      $('#header').delay(1000).queue(function() {
         start_deferred.resolve();
-      }
+        $(this).dequeue();
+      });
+    } else {
+      start_deferred.resolve();
     }
     loadMenu();
   });
   $('#footer').load('footer_' + lang + '.html', function() {
-    if(animation) {
-      header_deferred.done(function() {
-        $('#footer').removeClass('hidden');
-      });
-    }
+    header_deferred.done(function() {
+      $('#footer').removeClass('hidden');
+    });
   });
 });
 
