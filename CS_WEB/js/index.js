@@ -87,7 +87,7 @@ function linkRedirect() {
       $('.gallery').addClass('hidden');
       $('#slide_container').addClass('hidden');
       $('#index .hideable').delay(500).queue(hide);
-      $('#slide_container').delay(500).queue(function() {
+      $('#slide_container').delay(700).queue(function() {
         start_deferred.resolve();
         $(this).html('');
         $(this).dequeue();
@@ -313,8 +313,8 @@ function renderContent(data, animating) {
   }
 }
 
-function renderSlide(url, animating) {
-  $.getJSON(url, function(data) {
+function renderSlide(animating) {
+  $.getJSON('content_' + lang + '/slides.json', function(data) {
     $.when(index_deferred, start_deferred).done(function() {
       $('#content').hide();
       $('#index').show();
@@ -385,19 +385,20 @@ function loadIndex(animating) {
     index_deferred = new $.Deferred();
     $('#index').load('index_' + lang + '.html', function() {
       index_deferred.resolve();
+      Modernizr.load({
+        test: Modernizr.csstransitions,
+        yep : 'css/index-transition.css',
+        nope: 'js/index-transition.js'
+      });
+      if (Modernizr.touch) {
+        $('.image_popup').css('bottom', '0');
+        $('.gallery_container span').css('display', 'inline');
+      }
+      if(norefresh) $('#index a').click(linkRedirect);
     });
   }
   slide_deferred = new $.Deferred();
   index_deferred.done(function() {
-    Modernizr.load({
-      test: Modernizr.csstransitions,
-      yep : 'css/index-transition.css',
-      nope: 'js/index-transition.js'
-    });
-    if (Modernizr.touch) {
-      $('.image_popup').css('bottom', '0');
-      $('.gallery_container span').css('display', 'inline');
-    }
     if(animating) {
       slide_deferred.done(function() {
         for(var i = 1; i <= 6; i++) {
@@ -408,9 +409,8 @@ function loadIndex(animating) {
     } else {
       $('#index .hidden').removeClass('hidden');
     }
-    if(norefresh) $('#index a').click(linkRedirect);
   });
-  renderSlide('content_' + lang + '/slides.json', animating);
+  renderSlide(animating);
   renderColumn('#column1', 1, 3, animating);
   renderColumn('#column2', 1, 2, animating);
   renderColumn('#column5', 6, 1, animating);
