@@ -432,7 +432,7 @@ $(document).ready(function() {
         loadPage(false);
         loadMenu();
       });
-      $(document).delegate('a', 'click', linkRedirect);
+      $(document).on('click', 'a', linkRedirect);
     });
   }
   loadPage(animation);
