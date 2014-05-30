@@ -5,7 +5,7 @@ var animation, norefresh;
 // Sequence Control
 var header_deferred = new $.Deferred(), index_deferred, start_deferred, slide_deferred;
 // Shared Data
-var map, list;
+var map, content;
 
 function getParameterByName(name) {
   name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -204,7 +204,7 @@ function renderList(data) {
 }
 
 function loadList(filter) {
-  list.done(function(data) {
+  content.done(function(data) {
     if(filter) {
       data = $(data).filter(function() {
         return this.title.toLowerCase().indexOf(filter) >= 0;
@@ -231,6 +231,7 @@ function loadList(filter) {
 }
 
 function renderContent(data, animating) {
+  var placeholder = $('#placeholder');
   var site_title = data[0].title;
   $('#loc_prompt').text(data[0].loc_prompt);
   if (section >= data.length) window.location.href = '.';
@@ -252,12 +253,12 @@ function renderContent(data, animating) {
     switch (data[column].type) {
     case 0:
       $('#loc_entry_3').text(data[column].name);
-      $.getJSON('content_' + lang + '/' + section + '/' + column + '.json', function(data) {
-        $('#placeholder').html(data.html);
+      content = $.getJSON('content_' + lang + '/' + section + '/' + column + '.json', function(data) {
+        placeholder.html(data.html);
       }).fail(loadFail);
       break;
     case 1:
-      list = $.getJSON('content_' + lang + '/' + section + '/' + column + '/0.json');
+      content = $.getJSON('content_' + lang + '/' + section + '/' + column + '/0.json');
       $('#loc_entry_3').html('<input type="text" id="list_filter">');
       $('#list_filter').on('keyup', function() {
         loadList($(this).val().toLowerCase());
@@ -272,10 +273,10 @@ function renderContent(data, animating) {
     }
   } else {
     $('#loc_entry_2').html('<a href="?s=' + section + '&amp;c=' + column + '">' + data[column].name + '</a>');
-    $.getJSON('content_' + lang + '/' + section + '/' + column + '/' + article + '.json', function(data) {
-      var elem = $('#placeholder').html('').append('<div class="article_title">' + data.title + '</div>');
-      if(data.date) elem.append('<div class="article_date">' + data.date + '</div>');
-      elem.append('<div class="article_content">' + data.html + '</div>');
+    content = $.getJSON('content_' + lang + '/' + section + '/' + column + '/' + article + '.json', function(data) {
+      placeholder.html('').append('<div class="article_title">' + data.title + '</div>');
+      if(data.date) placeholder.append('<div class="article_date">' + data.date + '</div>');
+      placeholder.append('<div class="article_content">' + data.html + '</div>');
       $('#loc_entry_3').text(data.title);
       document.title = data.title + ' - ' + site_title;
     }).fail(loadFail);
@@ -286,7 +287,12 @@ function renderContent(data, animating) {
       $('#content').show();
       $('#location_container').delay(0).queue(show);
       $('#sidebar_container').delay(500).queue(show);
-      $('#placeholder').delay(800).queue(show);
+      placeholder.delay(800).queue(function() {
+        content.done(function() {
+          placeholder.removeClass('hidden');
+          placeholder.dequeue();
+        })
+      });
     });
   } else {
     $('#index').hide();
