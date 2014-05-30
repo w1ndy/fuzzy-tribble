@@ -29,11 +29,11 @@ function backToTop() {
   $(window.opera ? 'html' : 'html, body').animate({ scrollTop: 0 }, 'slow');
 }
 
-function linkRedirect(href, link) {
+function linkRedirect() {
   // Content to Index
-  if(href.charAt(0) == '.') {
+  if($(this).attr('href') == '.') {
     if(section == 0) return false;
-    history.pushState({}, '', link);
+    history.pushState({}, '', this.href);
     section = 0;
     backToTop();
     loadMenu();
@@ -48,10 +48,10 @@ function linkRedirect(href, link) {
     }
     return false;
   }
-  if(href.charAt(0) != '?') return true;
+  if($(this).attr('href').charAt(0) != '?') return true;
   // Index to Content
   if(section == 0) {
-    history.pushState({}, '', link);
+    history.pushState({}, '', this.href);
     backToTop();
     getParameters();
     loadMenu();
@@ -67,7 +67,7 @@ function linkRedirect(href, link) {
     return false;
   }
   // Content to Content
-  history.pushState({}, '', link);
+  history.pushState({}, '', this.href);
   backToTop();
   getParameters();
   loadMenu();
@@ -205,11 +205,7 @@ function loadList(filter) {
       }
       loadList(filter);
     });
-    if(norefresh) {
-      $('#newslist a').click(function() {
-        return linkRedirect($(this).attr('href'), this.href);
-      });
-    }
+    if(norefresh) $('#newslist a').click(linkRedirect);
   });
 }
 
@@ -232,11 +228,7 @@ function renderContent(data, animating) {
         + '">' + data[s].name + '</a></li>');
     }
   }
-  if(norefresh) {
-    $('#sidebar_navi a').click(function() {
-      return linkRedirect($(this).attr('href'), this.href);
-    });
-  }
+  if(norefresh) $('#sidebar_navi a').click(linkRedirect);
   if(article == 0) {
     $('#loc_entry_2').text(data[column].name);
     switch (data[column].type) {
@@ -264,11 +256,7 @@ function renderContent(data, animating) {
     }
   } else {
     $('#loc_entry_2').html('<a href="?s=' + section + '&amp;c=' + column + '">' + data[column].name + '</a>');
-    if(norefresh) {
-      $('#loc_entry_2 a').click(function() {
-        return linkRedirect($(this).attr('href'), this.href);
-      });
-    }
+    if(norefresh) $('#loc_entry_2 a').click(linkRedirect);
     $.getJSON('content_' + lang + '/' + section + '/' + column + '/' + article + '.json', function(data) {
       $('#placeholder').html('');
       $('#placeholder').append('<div class="article_title">' + data.title + '</div>');
@@ -352,11 +340,7 @@ function renderColumn(content_deferred, node, section, column) {
 function loadMenu() {
   map.done(function(data) {
     renderMenu(data, section);
-    if(norefresh) {
-      $('.menubar-content-menu a').click(function() {
-        return linkRedirect($(this).attr('href'), this.href);
-      });
-    }
+    if(norefresh) $('.menubar-content-menu a').click(linkRedirect);
   });
 }
 
@@ -406,11 +390,7 @@ function loadIndex(animating) {
   $.when(renderColumn(content_deferred, '#column1', 1, 3),
     renderColumn(content_deferred, '#column2', 1, 2),
     renderColumn(content_deferred, '#column5', 6, 1)).then(function() {
-      if(norefresh) {
-        $('#index a').click(function() {
-          return linkRedirect($(this).attr('href'), this.href);
-        });
-      }
+      if(norefresh) $('#index a').click(linkRedirect);
     });
 }
 
