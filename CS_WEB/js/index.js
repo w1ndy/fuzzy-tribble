@@ -3,7 +3,7 @@ var lang, section, column, page, article;
 // Settings
 var animation, norefresh;
 // Sequence Control
-var header_deferred, sequence = new Array(8);
+var header_deferred = new $.Deferred(), index_deferred = new $.Deferred(), sequence = new Array(8);
 // Shared Data
 var map;
 
@@ -276,7 +276,6 @@ function renderContent(data, animating) {
     });
   }
   if(animating) {
-    //for(var i = 1; i < 8; i++) sequence[i] = new $.Deferred();
     sequence[0].done(function() {
       $('#location_container').delay(0).queue(function() {
         $(this).removeClass('hidden');
@@ -296,9 +295,10 @@ function renderContent(data, animating) {
   }
 }
 
-function renderSlide(content_deferred, url, animating) {
+function renderSlide(url, animating) {
   $.getJSON(url, function(data) {
-    content_deferred.done(function() {
+    index_deferred.done(function() {
+      $('#slide_container').html('<div id="slide"><ul></ul></div>');
       for(var i = 0; i < data.length; i++) {
         $('#slide ul').append(
           '<li>' +
@@ -320,19 +320,26 @@ function renderSlide(content_deferred, url, animating) {
           $('#slide_container').removeClass('hidden');
         });
       }
+      if(norefresh) $('#slide a').click(linkRedirect);
     });
   });
 }
 
-function renderColumn(content_deferred, node, section, column) {
-  return $.getJSON('content_' + lang + '/' + section + '/' + column + '/0.json', function(data) {
-    content_deferred.done(function() {
+function renderColumn(node, section, column, animating) {
+  $.getJSON('content_' + lang + '/' + section + '/' + column + '/0.json', function(data) {
+    index_deferred.done(function() {
+      if(animating) {
+        $(node + ' .itemlist_container').html('<table class="itemlist hideable hidden"></table>');
+      } else {
+        $(node + ' .itemlist_container').html('<table class="itemlist hideable"></table>');
+      }
       for(var i = 0; i < (data.length > 5 ? 5 : data.length); i++) {
         $(node + ' .itemlist').append('<tr><td class="item_dot"></td><td class="item_title"><a href="' +
           ((typeof data[i].url == 'string') ? data[i].url : '?s=' + section + '&amp;c=' +
           column + '&amp;a=' + data[i].url) + '">' + data[i].title + '</a></td>' + ((data[i].date) ?
           '<td class="item_date">' + data[i].date + '</td>' : '') + '</tr>');
       }
+      if(norefresh) $(node + ' a').click(linkRedirect);
     });
   });
 }
@@ -359,9 +366,7 @@ function loadIndex(animating) {
     document.title = data[0].title;
   });
   for(var i = 1; i < 8; i++) sequence[i] = new $.Deferred();
-  var content_deferred = new $.Deferred();
-  $('#index').load('index_' + lang + '.html', function() {
-    content_deferred.resolve();
+  index_deferred.done(function() {
     Modernizr.load({
       test: Modernizr.csstransitions,
       yep : 'css/index-transition.css',
@@ -385,18 +390,22 @@ function loadIndex(animating) {
     } else {
       $('#index .hidden').removeClass('hidden');
     }
+    if(norefresh) $('#index a').click(linkRedirect);
   });
-  renderSlide(content_deferred, 'content_' + lang + '/slides.json', animating);
-  $.when(renderColumn(content_deferred, '#column1', 1, 3),
-    renderColumn(content_deferred, '#column2', 1, 2),
-    renderColumn(content_deferred, '#column5', 6, 1)).then(function() {
-      if(norefresh) $('#index a').click(linkRedirect);
-    });
+  renderSlide('content_' + lang + '/slides.json', animating);
+  renderColumn('#column1', 1, 3, animating);
+  renderColumn('#column2', 1, 2, animating);
+  renderColumn('#column5', 6, 1, animating);
 }
 
 function loadPage(animating) {
   getParameters();
   if(section == 0) {
+    if(index_deferred.state() != 'resolved') {
+      $('#index').load('index_' + lang + '.html', function() {
+        index_deferred.resolve();
+      });
+    }
     loadIndex(animating);
   } else {
     loadContent(animating);
@@ -409,11 +418,11 @@ $(document).ready(function() {
   animation = Modernizr.csstransitions && !$.cookie('notransition');
   norefresh = Modernizr.history;
   sequence[0] = new $.Deferred();
-  header_deferred = new $.Deferred();
   map = $.getJSON('content_' + lang + '/map.json');
   if(norefresh) {
     header_deferred.done(function() {
       $(window).bind('popstate', function() {
+        $('.hideable').addClass('hidden');
         loadPage(false);
         loadMenu();
       });
