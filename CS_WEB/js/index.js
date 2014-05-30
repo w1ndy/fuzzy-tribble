@@ -59,8 +59,7 @@ function linkRedirect() {
     if(animation) {
       start_deferred = new $.Deferred();
       loadIndex(animation);
-      $('#content .hideable').clearQueue();
-      $('#content .hideable').addClass('hidden');
+      $('#content .hideable').clearQueue().addClass('hidden');
       $('#placeholder').delay(500).queue(function() {
         start_deferred.resolve();
         $(this).dequeue();
@@ -80,13 +79,7 @@ function linkRedirect() {
     if(animation) {
       start_deferred = new $.Deferred();
       loadContent(animation);
-      $('#index .hideable').clearQueue();
-      $('.col_header div').addClass('hidden');
-      $('.itemlist').addClass('hidden');
-      $('.imagelist').addClass('hidden');
-      $('.gallery').addClass('hidden');
-      $('#slide_container').addClass('hidden');
-      $('#index .hideable').delay(500).queue(hide);
+      $('#index .hideable').clearQueue().delay(500).queue(hide).not('div.col_header').addClass('hidden');
       $('#slide_container').delay(700).queue(function() {
         start_deferred.resolve();
         $(this).html('');
@@ -104,8 +97,7 @@ function linkRedirect() {
   loadMenu();
   if(animation) {
     start_deferred = new $.Deferred();
-    $('#content .hideable').clearQueue();
-    $('#content .hideable').addClass('hidden');
+    $('#content .hideable').clearQueue().addClass('hidden');
     $('#placeholder').delay(500).queue(function() {
       start_deferred.resolve();
       loadContent(animation);
@@ -135,22 +127,23 @@ function linkRedirect() {
 
 function renderPageButton(current_page, page_count) {
   if(page_count < 2) return;
+  var elem = $('#pager');
   if(current_page == 1) {
-    $('#pager').append('<div class="pagebutton pagebutton_disabled">&lt;</div>');
+    elem.append('<div class="pagebutton pagebutton_disabled">&lt;</div>');
   } else {
-    $('#pager').append('<div class="pagebutton">&lt;</div>');
+    elem.append('<div class="pagebutton">&lt;</div>');
   }
   for(var i = 1; i <= page_count; i++) {
     if(i == current_page) {
-      $('#pager').append('<div class="pagebutton nowpage">' + i + '</div>');
+      elem.append('<div class="pagebutton nowpage">' + i + '</div>');
     } else {
-      $('#pager').append('<div class="pagebutton">' + i + '</div>');
+      elem.append('<div class="pagebutton">' + i + '</div>');
     }
   }
   if(current_page == page_count) {
-    $('#pager').append('<div class="pagebutton pagebutton_disabled">&gt;</div>');
+    elem.append('<div class="pagebutton pagebutton_disabled">&gt;</div>');
   } else {
-    $('#pager').append('<div class="pagebutton">&gt;</div>');
+    elem.append('<div class="pagebutton">&gt;</div>');
   }
 }
 
@@ -196,13 +189,14 @@ function renderList(data) {
   $('#placeholder').html('<table id="newslist"></table><div id="pager_container"><div id="pager"></div></div>');
   var start = (page - 1) * 15, end = page * 15;
   if(end > data.length) end = data.length;
+  var elem = $('#newslist');
   for(var i = start; i < end; i++) {
     if(typeof data[i].url == 'string') {
-      $('#newslist').append('<tr><td class="newsdot"></td><td class="newstitle"><a href="' + data[i].url +
+      elem.append('<tr><td class="newsdot"></td><td class="newstitle"><a href="' + data[i].url +
         '">' + data[i].title + '</a></td>' + ((data[i].date) ? '<td class="newsdate">' + data[i].date +
         '</td>' : '') + '</tr>');
     } else {
-      $('#newslist').append('<tr><td class="newsdot"></td><td class="newstitle"><a href="?s=' + section +
+      elem.append('<tr><td class="newsdot"></td><td class="newstitle"><a href="?s=' + section +
         '&amp;c=' + column + '&amp;a=' + data[i].url + '">' + data[i].title + '</a></td>' + ((data[i].date) ?
         '<td class="newsdate">' + data[i].date + '</td>' : '') + '</tr>');
     }
@@ -220,7 +214,7 @@ function loadList(filter) {
     if(page > page_count) page = 1;
     renderList(data);
     renderPageButton(page, page_count);
-    $('.pagebutton').click(function() {
+    $('div.pagebutton').click(function() {
       var to = $(this).text();
       if(to == '<') to = page - 1;
       if(to == '>') to = +page + 1;
@@ -245,14 +239,12 @@ function renderContent(data, animating) {
   if(column >= data.length) column = 1;
   document.title = data[column].name + ' - ' + site_title;
   $('#sidebar_header').text(data[0].page_name);
-  $('#sidebar_navi').html('<ul></ul>');
+  var elem = $('#sidebar_navi').html('<ul></ul>').find('ul');
   for(var s = 1; s < data.length; s++) {
     if(s == column) {
-      $('#sidebar_navi ul').append('<li><a href="?s=' + section + '&amp;c=' + s
-        + '"><strong>' + data[s].name + '</strong></a></li>');
+      elem.append('<li><a href="?s=' + section + '&amp;c=' + s + '"><strong>' + data[s].name + '</strong></a></li>');
     } else {
-      $('#sidebar_navi ul').append('<li><a href="?s=' + section + '&amp;c=' + s
-        + '">' + data[s].name + '</a></li>');
+      elem.append('<li><a href="?s=' + section + '&amp;c=' + s + '">' + data[s].name + '</a></li>');
     }
   }
   if(article == 0) {
@@ -281,18 +273,11 @@ function renderContent(data, animating) {
   } else {
     $('#loc_entry_2').html('<a href="?s=' + section + '&amp;c=' + column + '">' + data[column].name + '</a>');
     $.getJSON('content_' + lang + '/' + section + '/' + column + '/' + article + '.json', function(data) {
-      $('#placeholder').html('');
-      $('#placeholder').append('<div class="article_title">' + data.title + '</div>');
-      if(data.date) $('#placeholder').append('<div class="article_date">' + data.date + '</div>');
-      $('#placeholder').append('<div class="article_content">' + data.html + '</div>');
-      var title_node = $('#placeholder .article_title');
-      if(title_node.length != 0) {
-        var title = title_node.text();
-        document.title = title + ' - ' + site_title;
-      } else {
-        var title = a;
-      }
-      $('#loc_entry_3').text(title);
+      var elem = $('#placeholder').html('').append('<div class="article_title">' + data.title + '</div>');
+      if(data.date) elem.append('<div class="article_date">' + data.date + '</div>');
+      elem.append('<div class="article_content">' + data.html + '</div>');
+      $('#loc_entry_3').text(data.title);
+      document.title = data.title + ' - ' + site_title;
     }).fail(loadFail);
   }
   if(animating) {
@@ -316,8 +301,9 @@ function renderSlide(animating) {
       $('#content').hide();
       $('#index').show();
       $('#slide_container').html('<div id="slide"><ul></ul></div>');
+      var elem = $('#slide').find('ul');
       for(var i = 0; i < data.length; i++) {
-        $('#slide ul').append(
+        elem.append(
           '<li>' +
             '<img src="' + data[i].image + '">' +
             '<div class="mask"></div>' +
@@ -330,8 +316,7 @@ function renderSlide(animating) {
       $('#slide').unslider({speed: 500, delay: 4000, keys: true, dots: true, fluid: false});
       if(animating) {
         header_deferred.done(function() {
-          $('#slide_container').removeClass('hidden');
-          $('#slide_container').delay(1000).queue(function() {
+          $('#slide_container').removeClass('hidden').delay(1000).queue(function() {
             slide_deferred.resolve();
             $(this).dequeue();
           });
@@ -344,13 +329,15 @@ function renderSlide(animating) {
 function renderColumn(node, section, column, animating) {
   $.getJSON('content_' + lang + '/' + section + '/' + column + '/0.json', function(data) {
     index_deferred.done(function() {
+      node = $(node);
       if(animating) {
-        $(node + ' .itemlist_container').html('<table class="itemlist hideable hidden"></table>');
+        node.find('div.itemlist_container').html('<table class="itemlist hideable hidden"></table>');
       } else {
-        $(node + ' .itemlist_container').html('<table class="itemlist hideable"></table>');
+        node.find('div.itemlist_container').html('<table class="itemlist hideable"></table>');
       }
+      var elem = node.find('table.itemlist');
       for(var i = 0; i < (data.length > 5 ? 5 : data.length); i++) {
-        $(node + ' .itemlist').append('<tr><td class="item_dot"></td><td class="item_title"><a href="' +
+        elem.append('<tr><td class="item_dot"></td><td class="item_title"><a href="' +
           ((typeof data[i].url == 'string') ? data[i].url : '?s=' + section + '&amp;c=' +
           column + '&amp;a=' + data[i].url) + '">' + data[i].title + '</a></td>' + ((data[i].date) ?
           '<td class="item_date">' + data[i].date + '</td>' : '') + '</tr>');
@@ -385,8 +372,8 @@ function loadIndex(animating) {
         nope: 'js/index-transition.js'
       });
       if (Modernizr.touch) {
-        $('.image_popup').css('bottom', '0');
-        $('.gallery_container span').css('display', 'inline');
+        $('div.image_popup').css('bottom', '0');
+        $('div.gallery_container').find('span').css('display', 'inline');
       }
     });
   }
@@ -395,8 +382,8 @@ function loadIndex(animating) {
     if(animating) {
       slide_deferred.done(function() {
         for(var i = 1; i <= 6; i++) {
-          $('#column' + i + ' .col_header').delay((i - 1) * 200).queue(show);
-          $('#column' + i + ' .hidden').delay(i * 200).queue(show);
+          $('#column' + i).find('div.col_header').delay((i - 1) * 200).queue(show);
+          $('#column' + i).find('.hidden').delay(i * 200).queue(show);
         }
       });
     } else {
@@ -438,9 +425,9 @@ $(document).ready(function() {
   loadPage(animation);
   $('#header').load('header_' + lang + '.html', function() {
     header_deferred.resolve();
-    $('#header').removeClass('hidden');
+    $(this).removeClass('hidden');
     if(animation && section != 0) {
-      $('#header').delay(1000).queue(function() {
+      $(this).delay(1000).queue(function() {
         start_deferred.resolve();
         $(this).dequeue();
       });
@@ -457,10 +444,10 @@ $(document).ready(function() {
 });
 
 $(window).scroll(function(e) {
-  $elem = $('.floatable');
+  var elem = $('.floatable');
   if($(window).scrollTop() > 115) {
-    if($elem.css('position') != 'fixed') $elem.addClass('float');
+    if(elem.css('position') != 'fixed') elem.addClass('float');
   } else {
-    if($elem.css('position') == 'fixed') $elem.removeClass('float');
+    if(elem.css('position') == 'fixed') elem.removeClass('float');
   }
 });
