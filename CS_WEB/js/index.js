@@ -233,7 +233,6 @@ function loadList(filter) {
       }
       loadList(filter);
     });
-    if(norefresh) $('#newslist a').click(linkRedirect);
   });
 }
 
@@ -256,7 +255,6 @@ function renderContent(data, animating) {
         + '">' + data[s].name + '</a></li>');
     }
   }
-  if(norefresh) $('#sidebar_navi a').click(linkRedirect);
   if(article == 0) {
     $('#loc_entry_2').text(data[column].name);
     switch (data[column].type) {
@@ -282,7 +280,6 @@ function renderContent(data, animating) {
     }
   } else {
     $('#loc_entry_2').html('<a href="?s=' + section + '&amp;c=' + column + '">' + data[column].name + '</a>');
-    if(norefresh) $('#loc_entry_2 a').click(linkRedirect);
     $.getJSON('content_' + lang + '/' + section + '/' + column + '/' + article + '.json', function(data) {
       $('#placeholder').html('');
       $('#placeholder').append('<div class="article_title">' + data.title + '</div>');
@@ -340,7 +337,6 @@ function renderSlide(animating) {
           });
         });
       }
-      if(norefresh) $('#slide a').click(linkRedirect);
     });
   });
 }
@@ -359,7 +355,6 @@ function renderColumn(node, section, column, animating) {
           column + '&amp;a=' + data[i].url) + '">' + data[i].title + '</a></td>' + ((data[i].date) ?
           '<td class="item_date">' + data[i].date + '</td>' : '') + '</tr>');
       }
-      if(norefresh) $(node + ' a').click(linkRedirect);
     });
   });
 }
@@ -367,7 +362,6 @@ function renderColumn(node, section, column, animating) {
 function loadMenu() {
   map.done(function(data) {
     renderMenu(data, section);
-    if(norefresh) $('.menubar-content-menu a').click(linkRedirect);
   });
 }
 
@@ -394,7 +388,6 @@ function loadIndex(animating) {
         $('.image_popup').css('bottom', '0');
         $('.gallery_container span').css('display', 'inline');
       }
-      if(norefresh) $('#index a').click(linkRedirect);
     });
   }
   slide_deferred = new $.Deferred();
@@ -434,11 +427,12 @@ $(document).ready(function() {
   map = $.getJSON('content_' + lang + '/map.json');
   if(norefresh) {
     header_deferred.done(function() {
-      $(window).bind('popstate', function() {
+      $(window).on('popstate', function() {
         $('.hideable').addClass('hidden');
         loadPage(false);
         loadMenu();
       });
+      $(document).delegate('a', 'click', linkRedirect);
     });
   }
   loadPage(animation);
