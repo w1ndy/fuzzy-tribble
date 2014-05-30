@@ -46,6 +46,8 @@ function hide() {
 function loadFail() {
   $('#loc_entry_3').text('404');
   $('#placeholder').html('<p style="text-align:center;text-indent:0"><img style="display:inline" src="images/404.jpg"></p>');
+  content = new $.Deferred;
+  content.resolve();
 }
 
 function linkRedirect() {
