@@ -267,7 +267,7 @@ function renderContent(data, animating) {
     case 1:
       list = $.getJSON('content_' + lang + '/' + section + '/' + column + '/0.json');
       $('#loc_entry_3').html('<input type="text" id="list_filter">');
-      $('#list_filter').on('input', function() {
+      $('#list_filter').on('keyup', function() {
         loadList($(this).val().toLowerCase());
       });
       loadList('');

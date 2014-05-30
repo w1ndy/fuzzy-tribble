@@ -129,12 +129,11 @@ body {
 }
 #menubar-content {
 	width: 1000px;
-	height: 100%;
+	height: 40px;
 	margin: 0 auto;
 }
 .menubar-content-menu {
-	width: auto;
-	height: 100%;
+	height: 40px;
 	float: left;
 	line-height: 40px;
 	text-align: center;
@@ -144,8 +143,7 @@ body {
 	filter: glow(color=black,strength=1);
 }
 #menubar-content-helper {
-	width: auto;
-	height: 100%;
+	height: 40px;
 	float: right;
 	line-height: 40px;
 	text-align: center;
@@ -751,8 +749,7 @@ body {
 	height: 35px;
 }
 #loc_prompt {
-	height: 100%;
-	width: auto;
+	height: 35px;
 	text-align: center;
 	line-height: 35px;
 	padding-left: 20px;
@@ -764,8 +761,7 @@ body {
 	float: left;
 }
 #loc_entry_1, #loc_entry_2 {
-	height: 100%;
-	width: auto;
+	height: 35px;
 	text-align: center;
 	float: left;
 	line-height: 35px;
@@ -774,7 +770,7 @@ body {
 	font-size: small;
 }
 #loc_entry_3 {
-	height: 100%;
+	height: 35px;
 	line-height: 35px;
 	padding-left: 25px;
 	padding-right: 20px;
@@ -784,7 +780,7 @@ body {
 	font-size: small;
 }
 #loc_sep_1, #loc_sep_2 {
-	height: 100%;
+	height: 35px;
 	width: 27px;
 	float: left;
 	margin-left: -10px;
@@ -804,7 +800,6 @@ body {
 	margin-left: 20px;
 	margin-right: 20px;
 	margin-bottom: 60px;
-	width: auto;
 	opacity: 1;
 	overflow: hidden;
 	text-indent: 2em;
@@ -814,7 +809,6 @@ body {
 	transition: 0.5s;
 }
 #placeholder p {
-	width: auto;
 	margin-bottom: 5px;
 	line-height: 1.5em;
 	word-break: break-all;
