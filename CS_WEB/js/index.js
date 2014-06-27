@@ -390,8 +390,9 @@ function loadIndex(animating) {
     if(animating) {
       slide_deferred.done(function() {
         for(var i = 1; i <= 6; i++) {
-          $('#column' + i).find('div.col_header').delay((i - 1) * 200).queue(show);
-          $('#column' + i).find('.hidden').delay(i * 200).queue(show);
+          var elem = $('#column' + i);
+          elem.find('div.col_header').delay((i - 1) * 200).queue(show);
+          elem.find('.hidden').delay(i * 200).queue(show);
         }
       });
     } else {
