@@ -1,0 +1,97 @@
+[
+	{
+		"url": "http://msdn.microsoft.com/zh-cn/subscriptions/downloads/hh442898.aspx",
+		"title": "操作系统 / Windows",
+		"date": "网站链接"
+	},
+	{
+		"url": "http://msdn.microsoft.com/zh-cn/subscriptions/downloads/hh442898.aspx",
+		"title": "办公软件 / Microsoft office",
+		"date": "网站链接"
+	},
+	{
+		"url": "http://mirrors.ustc.edu.cn/archlinux/iso/",
+		"title": "操作系统 / Archlinux",
+		"date": "进入下载页面"
+	},
+	{
+		"url": "http://mirrors.ustc.edu.cn/fedora/linux/releases/20/Fedora/i386/iso/Fedora-20-i386-DVD.iso",
+		"title": "操作系统 / Fedora 20 i386",
+		"date": "点击直接下载"
+	},
+	{
+		"url": "http://mirrors.ustc.edu.cn/fedora/linux/releases/20/Fedora/i386/iso/Fedora-20-x86_64-DVD.iso",
+		"title": "操作系统 / Fedora 20 x86_64",
+		"date": "点击直接下载"
+	},
+	{
+		"url": "http://mirrors.ustc.edu.cn/ubuntu-releases/14.04/ubuntu-14.04-desktop-amd64.iso",
+		"title": "操作系统 / Ubuntu 14.04 desktop amd64",
+		"date": "点击直接下载"
+	},
+	{
+		"url": "http://mirrors.ustc.edu.cn/ubuntu-releases/14.04/ubuntu-14.04-desktop-i386.iso",
+		"title": "操作系统 / Ubuntu 14.04 desktop i386",
+		"date": "点击直接下载"
+	},
+	{
+		"url": "http://www.vmware.com/cn/products/workstation/workstation-evaluation",
+		"title": "虚拟机软件 / VMware Workstation",
+		"date": "进入下载页面"
+	},
+	{
+		"url": "https://www.google.com/chrome/browser/",
+		"title": "浏览器 / Chrome",
+		"date": "进入下载页面"
+	},
+	{
+		"url": "http://get.adobe.com/cn/reader/",
+		"title": "阅读器 / Adobe Reader",
+		"date": "进入下载页面"
+	},
+	{
+		"url": "http://ctan.unixbrain.com/systems/windows/protext/protext.exe",
+		"title": "排版软件 / ProTeXt for Windows",
+		"date": "点击直接下载"
+	},
+	{
+		"url": "http://mirror.ctan.org/systems/mac/mactex/MacTeX.pkg",
+		"title": "排版软件 / MacTex",
+		"date": "点击直接下载"
+	},
+	{
+		"url": "http://mirrors.ctan.org/systems/win32/miktex/setup/basic-miktex-2.9.5105.exe",
+		"title": "排版软件 / Basic MiKTeX for Windows x86",
+		"date": "点击直接下载"
+	},
+	{
+		"url": "http://mirrors.ctan.org/systems/win32/miktex/setup/basic-miktex-2.9.5105-x64.exe",
+		"title": "排版软件 / Basic MiKTeX for Windows x64",
+		"date": "点击直接下载"
+	},
+	{
+		"url": "http://ftp.ctex.org/pub/tex/systems/ctex/2.9/CTeX_2.9.2.164_Full.exe",
+		"title": "排版软件 / CTeX",
+		"date": "点击直接下载"
+	},
+	{
+		"url": "http://www.foobar2000.org/getfile/f61e66d394f0475a6724395cd21a4320/foobar2000_v1.3.2.exe",
+		"title": "音频播放器 / foobar2000 v1.3.2",
+		"date": "点击直接下载"
+	},
+	{
+		"url": "http://www.potplayer.org",
+		"title": "视频播放器 / PotPlayer",
+		"date": "进入下载页面"
+	},
+	{
+		"url": "https://downloads.sourceforge.net/project/mplayerx-osx/MPlayerX-1.0.22.1.zip",
+		"title": "视频播放器 / MPlayerX",
+		"date": "点击直接下载"
+	},
+	{
+		"url": "http://www.videolan.org/vlc/",
+		"title": "视频播放器 / VideoLAN",
+		"date": "进入下载页面"
+	}
+]

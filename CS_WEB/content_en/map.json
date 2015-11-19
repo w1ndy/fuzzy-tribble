@@ -1,0 +1,117 @@
+[
+  {
+    "title": "Computer Science Department - Taishan College - Shandong University",
+    "loc_prompt": "Navigation"
+  },
+  [
+    {
+      "page_name": "About"
+    },
+    {
+      "name": "Introduction",
+      "type": 0
+    },
+    {
+      "name": "News",
+      "type": 1
+    },
+    {
+      "name": "Activities",
+      "type": 1
+    }
+  ],
+  [
+    {
+      "page_name": "Teachers"
+    },
+    {
+      "name": "Professors",
+      "type": 1
+    },
+    {
+      "name": "Tutors",
+      "type": 1
+    }
+  ],
+  [
+    {
+      "page_name": "Education"
+    },
+    {
+      "name": "Policy",
+      "type": 1
+    }
+  ],
+  [
+    {
+      "page_name": "Resources"
+    },
+    {
+      "name": "Courseware",
+      "type": 1
+    },
+    {
+      "name": "Exams",
+      "type": 1
+    },
+    {
+      "name": "E-books",
+      "type": 1
+    },
+    {
+      "name": "Experience",
+      "type": -1
+    }
+  ],
+  [
+    {
+      "page_name": "Achievements"
+    },
+    {
+      "name": "Hall of Fame",
+      "type": 1
+    },
+    {
+      "name": "Competitions",
+      "type": 1
+    }
+  ],
+  [
+    {
+      "page_name": "Admission"
+    },
+    {
+      "name": "Updates",
+      "type": 1
+    },
+    {
+      "name": "Papers",
+      "type": 1
+    }
+  ],
+  [
+    {
+      "page_name": "Utility"
+    },
+    {
+      "name": "Software",
+      "type": 1
+    },
+    {
+      "name": "Tools",
+      "type": 1
+    },
+    {
+      "name": "Websites",
+      "type": -1
+    },
+    {
+      "name": "Games",
+      "type": -1
+    },
+    {
+      "name": "Projects",
+      "type": -1
+    }
+  ]
+]

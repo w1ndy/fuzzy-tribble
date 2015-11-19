@@ -1,0 +1,48 @@
+<script language="javascript" type="text/javascript" src="js/GetCNDate.js"></script>
+<div id="banner">
+	<div id="banner-content">
+		<div id="banner-content-logo"></div>
+		<div id="banner-content-title"></div>
+		<div id="banner-content-right">
+			<div id="banner-content-right-logo"></div>
+			<div id="banner-content-right-navi">
+			<!--[if lte IE 8]>
+				<p style="color:orange;font-size:12px;margin-bottom:2px;">您的浏览器不支持CSS3，某些功能可能会受到影响<br>请升级至最新版本的<a href="http://windows.microsoft.com/zh-CN/internet-explorer/download-ie" style="color: orange;">Internet Explorer</a></p>
+			<![endif]-->
+			</div>
+		</div>
+	</div>
+</div>
+<div id="menubar" class="floatable"><div id="menubar-content"></div></div>
+<script>
+	$(document).ready(function() {
+		var D = new Date();
+		var yy = D.getFullYear();
+		var mm = D.getMonth()+1;
+		var dd = D.getDate();
+		$('#banner-content-right-navi').append('<p>今天是'+yy+'年'+mm+'月'+dd+'日 农历'+GetLunarDay(yy,mm,dd)+'</p>');
+		$.getJSON("http://api.openweathermap.org/data/2.5/weather?q=Jinan,CN&units=metric&lang=zh_CN&callback=?",
+			function(obj) {
+				$('#banner-content-right-navi').append('<p>济南 ' + obj.weather[0].description + ' ' +
+				Math.round(obj.main.temp) + '℃ by OpenWeatherMap</p>');
+			});
+	});
+
+	function renderMenu(data, highlight) {
+		$('#menubar-content').html('<div class="menubar-content-menu"><a href=".">首页</a></div><div id="menubar-content-helper"><a href="#">English</a></div>');
+		if(highlight == 0) $('.menubar-content-menu').addClass('menubar-content-highlight');
+		for(var i = 1; i < data.length; i++) {
+			if(i == highlight) {
+				$("#menubar-content-helper").before('<div class="menubar-content-menu menubar-content-highlight"><a href="?s=' +
+					i + '">' + data[i][0].page_name + '</a></div>');
+			} else {
+				$("#menubar-content-helper").before('<div class="menubar-content-menu"><a href="?s=' +
+					i + '">' + data[i][0].page_name + '</a></div>');
+			}
+		}
+		$('#menubar-content-helper a').click(function() {
+			$.cookie('language', 'en', { expires: 365 });
+			location.reload();
+		});
+	}
+</script>
